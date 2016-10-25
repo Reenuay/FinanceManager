@@ -25,47 +25,8 @@
 		<!-- UI Router-->
     <script src="framework/angular-ui-router.min.js"></script>
   </head>
-  <body ng-controller="MainController">
-		<div class="container-fluid">
-			<div class="vert-offset-top-8"></div>
-			<!-- Offset for small devices -->
-			<div class="vert-offset-top-8 hidden-md hidden-lg"></div>
-			<div class="row">
-				<div class="col-md-offset-4 col-md-4">
-					<div class="panel panel-default">
-						<div class="panel-heading text-center">
-							<h1>Please log in.<span class="btn-lg glyphicon glyphicon-user glyphicon-size-md"></span></h1>
-						</div>
-						<div class="panel-body">
-							<form class="form-horizontal" role="form">
-								<div class="form-group">
-									<label class="col-md-3 control-label" for="login">Login</label>
-									<div class="col-md-6">
-										<input id="login" type="text" class="form-control" placeholder="Login" maxlength="45" name="name" required />
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-md-3 control-label" for="password">Password</label>
-									<div class="col-md-6">
-										<input id="password" type="password" class="form-control" placeholder="Password" maxlength="45" name="password" required />
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-md-offset-3 col-md-6">
-										<button type="submit" class="btn btn-default">Log in</button>
-									</div>
-								</div>
-							</form>
-						</div><!-- Panel body end -->
-					</div><!-- Panel end -->
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-offset-4 col-md-4 text-center">
-						<h5>© Copyright - Finance Manager 2016</h5>
-				</div>
-			</div>
-		</div>
+  <body>
+		<ui-view></ui-view>
     <!-- Application -->
     <script src="app.js"></script>
   </body>

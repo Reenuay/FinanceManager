@@ -4,9 +4,13 @@
 (function () {
   "use strict";
   /*global angular*/
-  var app = angular.module("app", []);
+  var app = angular.module("app", ["ui.router"]);
 	
-	app.controller("MainController", function ($scope) {
-		
+	app.config(function ($stateProvider) {
+		$stateProvider.state({
+			name: "login",
+			url: "/login",
+			templateUrl: "app/login/login.template.url"
+		})
 	});
 }());
