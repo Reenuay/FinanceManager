@@ -10,7 +10,7 @@
 		$stateProvider.state({
 			name: "login",
 			url: "/login",
-			templateUrl: "app/login/login.template.url"
+			templateUrl: "app/login/login.template.html"
 		})
 	});
 }());
