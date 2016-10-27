@@ -1,13 +1,10 @@
 /*global angular*/
 (function () {
   "use strict";
-  var app = angular.module("app", ["ui.router"]);
+  var app = angular.module("app", ["ui.router", "ui.bootstrap"]);
 	
-	app.config(function ($locationProvider, $stateProvider) {
-		//Enable HTML5 mode for URLs
-		//$locationProvider.html5Mode(true);
-		
-		//Create routes
+	/*app config*/
+	app.config(function ($stateProvider) {
 		$stateProvider.state({
 			name: "login",
 			url: "/login",

@@ -7,5 +7,6 @@
 		$scope.login = {};
 		$scope.login.login = "Yahoo!";
 		$scope.login.password = "Yehaa!";
+		$scope.radioModel = 'Middle';
 	});
 }());
