@@ -1,16 +1,18 @@
-/*
- Firebase and AngularJS based Finance Manager
-*/
+/*global angular*/
 (function () {
   "use strict";
-  /*global angular*/
   var app = angular.module("app", ["ui.router"]);
 	
-	app.config(function ($stateProvider) {
+	app.config(function ($locationProvider, $stateProvider) {
+		//Enable HTML5 mode for URLs
+		//$locationProvider.html5Mode(true);
+		
+		//Create routes
 		$stateProvider.state({
 			name: "login",
 			url: "/login",
-			templateUrl: "app/login/login.template.html"
-		})
+			templateUrl: "app/login/login.template.html",
+			controller: "LoginController"
+		});
 	});
 }());
