@@ -1,26 +1,27 @@
 <div class="container-fluid">
-	<div class="vert-offset-top-8"></div>
-	<!-- Offset for small devices -->
-	<div class="vert-offset-top-8 hidden-md hidden-lg"></div>
+	<!-- Offset for large and medium devices -->
+	<div class="vert-offset-top-8 hidden-xs hidden-sm"></div>
 	<div class="row">
-		<div class="col-sm-offset-4 col-sm-4">
+		<div class="col-xs-12 col-sm-10 col-md-6 col-lg-5 col-centered">
 			<div class="panel panel-default">
 				<div class="panel-heading text-center">
 					<h1>Please log in.<span class="btn-lg glyphicon glyphicon-user glyphicon-size-md"></span></h1>
 				</div>
 				<div class="panel-body">
-					<form class="form-horizontal" role="form" novalidate>
+					<form ng-submit="login.submit()" class="form-horizontal" role="form" novalidate>
 						<div class="form-group">
 							<label class="col-sm-3 control-label" name="email">Email</label>
 							<div class="col-sm-6">
-								<input type="text" class="form-control" placeholder="Email" name="email" required />
+								<input ng-model="login.email" type="text" class="form-control" placeholder="Email" name="email" required />
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label" name="password">Password</label>
 							<div class="col-sm-6">
-								<input type="password" class="form-control" placeholder="Password" name="password" required />
+								<input ng-model="login.password" type="password" class="form-control" placeholder="Password" name="password" required />
 							</div>
+						</div>
+						<div class="form-group">
 						</div>
 						<div class="form-group">
 							<div class="col-sm-offset-3 col-sm-6">
@@ -33,7 +34,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-sm-offset-4 col-sm-4 text-center">
+		<div class="col-xs-12 text-center">
 				<h5>© Copyright - Finance Manager 2016</h5>
 		</div>
 	</div>
