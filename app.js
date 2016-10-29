@@ -10,7 +10,7 @@
     messagingSenderId: "172763067741"
   });
 	
-  var app = angular.module("app", ["ui.router", "ui.bootstrap", "firebase"]);
+  var app = angular.module("app", ["ui.router", "ui.bootstrap", "ui-notification", "firebase"]);
 	
 	/*app config*/
 	app.config(function ($stateProvider) {
