@@ -13,12 +13,23 @@
   var app = angular.module("app", ["ui.router", "ui.bootstrap", "ui-notification", "firebase"]);
 	
 	/*app config*/
-	app.config(function ($stateProvider) {
+	app.config(["$stateProvider", "NotificationProvider", function ($stateProvider, NotificationProvider) {
 		$stateProvider.state({
 			name: "login",
 			url: "/login",
 			templateUrl: "app/login/login.template.html",
 			controller: "LoginController"
 		});
-	});
+		
+		NotificationProvider.setOptions({
+			delay: 5000,
+			startTop: 20,
+			startRight: 10,
+			verticalSpacing: 20,
+			horizontalSpacing: 20,
+			positionX: "left",
+			positionY: "bottom",
+			maxCount: 5
+		});
+	}]);
 }());

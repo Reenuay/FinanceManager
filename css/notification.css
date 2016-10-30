@@ -1,0 +1,28 @@
+.ui-notification {
+	border-radius: 4px;
+	box-shadow: 0 3px 5px rgba(0,0,0,.3);
+}
+
+.ui-notification.success {
+	color: #3c763d;
+	background: #dff0d8;
+	border: 1px solid #d6e9c6;
+}
+
+.ui-notification.info {
+	color: #31708f;
+	background: #d9edf7;
+	border: 1px solid #bce8f1;
+}
+
+.ui-notification.warning {
+	color: #8a6d3b;
+	background: #fcf8e3;
+	border: 1px solid #faebcc;
+}
+
+.ui-notification.error {
+	color: #a94442;
+	background: #f2dede;
+	border: 1px solid #ebccd1;
+}

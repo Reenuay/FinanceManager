@@ -10,10 +10,10 @@
 		
 		$scope.login.submit = function () {
 			$firebaseAuth().$signInWithEmailAndPassword($scope.login.email, $scope.login.password)
-			.then( function(firebaseUser) {
-				alert(JSON.stringify(firebaseUser));
+			.then( function (firebaseUser) {
+				Notification.success(JSON.stringify(firebaseUser));
 			})
-			.catch( function(error) {
+			.catch( function (error) {
 				Notification.error(error.message);
 			});
 		};
