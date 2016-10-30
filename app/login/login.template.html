@@ -8,17 +8,17 @@
 					<h1>Please log in.<span class="btn-lg glyphicon glyphicon-user glyphicon-size-md"></span></h1>
 				</div>
 				<div class="panel-body">
-					<form ng-submit="login.submit()" class="form-horizontal" role="form" novalidate>
+					<form ng-submit="login.submit()" class="form-horizontal" role="form" name="LoginForm" novalidate>
 						<div class="form-group">
 							<label class="col-sm-3 control-label" name="email">Email</label>
 							<div class="col-sm-6">
-								<input ng-model="login.email" type="text" class="form-control" placeholder="Email" name="email" required />
+								<input ng-model="login.email" ng-model-options="{updateOn: 'blur'}" type="email" class="form-control" placeholder="Email" name="email" required/>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label" name="password">Password</label>
 							<div class="col-sm-6">
-								<input ng-model="login.password" type="password" class="form-control" placeholder="Password" name="password" required />
+								<input ng-model="login.password" ng-model-options="{updateOn: 'blur'}" type="password" class="form-control" placeholder="Password" name="password" required />
 							</div>
 						</div>
 						<div class="form-group">

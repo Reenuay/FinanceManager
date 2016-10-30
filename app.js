@@ -10,10 +10,13 @@
     messagingSenderId: "172763067741"
   });
 	
-  var app = angular.module("app", ["ui.router", "ui.bootstrap", "ui-notification", "firebase"]);
+  var app = angular.module("app", ["ui.router", "ui.bootstrap", "ui-notification", "firebase", "jcs-autoValidate"]);
 	
 	/*app config*/
-	app.config(["$stateProvider", "NotificationProvider", function ($stateProvider, NotificationProvider) {
+	app.config([
+		"$stateProvider", 
+		"NotificationProvider",
+		function ($stateProvider, NotificationProvider) {
 		$stateProvider.state({
 			name: "login",
 			url: "/login",
@@ -31,5 +34,9 @@
 			positionY: "bottom",
 			maxCount: 5
 		});
+	}]);
+	
+	app.run(['bootstrap3ElementModifier', function (bootstrap3ElementModifier) {
+		bootstrap3ElementModifier.enableValidationStateIcons(true);
 	}]);
 }());
