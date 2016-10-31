@@ -18,10 +18,24 @@
 		//All possible routes
 		$stateProvider
 		.state({
+			name: "entrypoint",
+			url: "",
+			redirectOn: "login"
+		})
+		.state({
+			name: "root",
+			url: "/",
+			redirectOn: "login"
+		})
+		.state({
 			name: "login",
 			url: "/login",
 			templateUrl: "app/login/login.template.html",
 			controller: "LoginController"
+		})
+		.state({
+			name: "forgotpassword",
+			url: "/forgotpassword"
 		})
 		.state({
 			name: "main",
@@ -48,21 +62,25 @@
 	}]);
 	
 	//Redirection on not-authenticated
-	app.run(function($rootScope, $location, $state, $firebaseAuth) {
+	app.run( function ($rootScope, $location, $state, $firebaseAuth) {
 		$rootScope.$on( '$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
+			//If authenticated/*
 			if ($firebaseAuth().$getAuth()) {
-				if (toState.name === "login" || toState.name === "forgotpassword")
+				if (toState.name === "login" || toState.name === "forgotpassword") {
 					e.preventDefault();//stop current execution
 					$state.go('main');//go to main
+				}
 			} else {
-				if(toState.name === "login" || toState.name === "forgotpassword")
+				if (toState.name === "login" || toState.name === "forgotpassword") {
 					return;//no need to redirect
+				}
 				
 				e.preventDefault();//stop current execution
 				$state.go('login');//go to login
 			}
 		});
 		
+		//When session expires go to login page
 		$firebaseAuth().$onAuthStateChanged( function (firebaseUser) {
       if (!firebaseUser)
 				$state.go('login');//go to login
