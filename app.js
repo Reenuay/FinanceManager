@@ -52,7 +52,8 @@
 		$rootScope.$on( '$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
 			if ($firebaseAuth().$getAuth()) {
 				if (toState.name === "login" || toState.name === "forgotpassword")
-					$state.go('main');
+					e.preventDefault();//stop current execution
+					$state.go('main');//go to main
 			} else {
 				if(toState.name === "login" || toState.name === "forgotpassword")
 					return;//no need to redirect
