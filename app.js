@@ -50,11 +50,13 @@
 	//Redirection on not-authenticated
 	app.run(function($rootScope, $location, $state, $firebaseAuth) {
 		$rootScope.$on( '$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
-			if(toState.name === "login"){
-				return; // no need to redirect 
-			}
-
-			if(!$firebaseAuth().$getAuth()) {
+			if ($firebaseAuth().$getAuth()) {
+				if (toState.name === "login" || toState.name === "forgotpassword")
+					$state.go('main');
+			} else {
+				if(toState.name === "login" || toState.name === "forgotpassword")
+					return;//no need to redirect
+				
 				e.preventDefault();//stop current execution
 				$state.go('login');//go to login
 			}
