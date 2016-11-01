@@ -5,13 +5,13 @@
 	
 	app.directive('fmEmail', function (defaultErrorMessageResolver) {
     defaultErrorMessageResolver.getErrorMessages().then( function (errorMessages) {
-      errorMessages.fmEmailDirective = "Please enter a valid email address";
+      errorMessages.fmEmail = "Please enter a valid email address";
     });
     return {
       restrict: "A",
       require: "ngModel",
       link: function(scope, element, attributes, ngModel) {
-        ngModel.$validators.fmEmailDirective = function(modelValue) {
+        ngModel.$validators.fmEmail = function(modelValue) {
           return /.+@.+\..+/.test(modelValue);
         };
   
