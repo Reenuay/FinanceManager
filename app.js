@@ -35,12 +35,15 @@
 		})
 		.state({
 			name: "forgotpassword",
-			url: "/forgotpassword"
+			url: "/forgotpassword",
+			templateUrl: "app/forgotpassword/forgotpassword.template.html",
+			controller: "ForgotpasswordController"
 		})
 		.state({
 			name: "main",
 			url: "/main",
-			templateUrl: "app/main/main.template.html"
+			templateUrl: "app/main/main.template.html",
+			controller: "MainController"
 		});
 		
 		//Notification tool config
@@ -80,12 +83,13 @@
 			}
 		});
 		
-		//When session expires go to login page
+		//When authentication state changed go to 
 		$firebaseAuth().$onAuthStateChanged( function (firebaseUser) {
-      if (!firebaseUser)
+      if (!firebaseUser) {
 				$state.go('login');//go to login
-			else
+			}	else {
 				$state.go('main');//go to main
+			}
     });
 	});
 }());
