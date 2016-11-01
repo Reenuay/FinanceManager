@@ -64,9 +64,9 @@
 	//Redirection on not-authenticated
 	app.run( function ($rootScope, $location, $state, $firebaseAuth) {
 		$rootScope.$on( '$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
-			//If authenticated/*
+			//If authenticated
 			if ($firebaseAuth().$getAuth()) {
-				if (toState.name === "login" || toState.name === "forgotpassword") {
+				if (toState.name === "entrypoint" || toState.name === "root" || toState.name === "login" || toState.name === "forgotpassword") {
 					e.preventDefault();//stop current execution
 					$state.go('main');//go to main
 				}
@@ -84,6 +84,8 @@
 		$firebaseAuth().$onAuthStateChanged( function (firebaseUser) {
       if (!firebaseUser)
 				$state.go('login');//go to login
+			else
+				$state.go('main');//go to main
     });
 	});
 }());
