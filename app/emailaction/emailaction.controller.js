@@ -5,8 +5,10 @@
 	
 	app.controller("EmailactionController", ["$scope", "$firebaseAuth", "Notification", function ($scope, $firebaseAuth, Notification) {
 		$scope.emailaction = {};
-		$scope.emailaction.mode = "changepassword";
+		$scope.emailaction.mode = "resetPassword";
 		$scope.emailaction.newpassword = "";
 		$scope.emailaction.confirmpassword = "";
+		$scope.emailaction.change = function () {
+		};
 	}]);
 }());

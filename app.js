@@ -4,7 +4,7 @@
 	//Initialize Firebase
   firebase.initializeApp({
     apiKey: "AIzaSyDA88bCzk34u7ILqrj4fBljJs7WemmU3BA",
-    authDomain: "financemanager-42340.firebaseapp.com",
+    //authDomain: "financemanager-42340.firebaseapp.com",
     databaseURL: "https://financemanager-42340.firebaseio.com",
     storageBucket: "financemanager-42340.appspot.com",
     messagingSenderId: "172763067741"
