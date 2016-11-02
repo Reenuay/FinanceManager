@@ -40,6 +40,12 @@
 			controller: "ForgotpasswordController"
 		})
 		.state({
+			name: "emailaction",
+			url: "/emailaction",
+			templateUrl: "app/emailaction/emailaction.template.html",
+			controller: "EmailactionController"
+		})
+		.state({
 			name: "main",
 			url: "/main",
 			templateUrl: "app/main/main.template.html",
@@ -69,12 +75,18 @@
 		$rootScope.$on( '$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
 			//If authenticated
 			if ($firebaseAuth().$getAuth()) {
-				if (toState.name === "entrypoint" || toState.name === "root" || toState.name === "login" || toState.name === "forgotpassword") {
+				if (toState.name === "entrypoint" ||
+						toState.name === "root" ||
+						toState.name === "login" ||
+						toState.name === "forgotpassword" ||
+					  toState.name === "emailaction") {
 					e.preventDefault();//stop current execution
 					$state.go('main');//go to main
 				}
 			} else {
-				if (toState.name === "login" || toState.name === "forgotpassword") {
+				if (toState.name === "login" ||
+						toState.name === "forgotpassword" ||
+						toState.name === "emailaction") {
 					return;//no need to redirect
 				}
 				
