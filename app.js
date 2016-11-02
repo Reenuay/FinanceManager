@@ -10,22 +10,19 @@
     messagingSenderId: "172763067741"
   });
 	
-  var app = angular.module("app", ["ui.router", "ui.bootstrap", "ui-notification", "firebase", "jcs-autoValidate"]);
+  var app = angular.module("app", ["firebase", "ui.router", "ui.bootstrap", "ui-notification", "jcs-autoValidate"]);
 	
 	/*app config*/
-	app.config(["$stateProvider", "NotificationProvider",
-	function ($stateProvider, NotificationProvider) {
-		//All possible routes
+	app.config(["$stateProvider", "$urlRouterProvider", "NotificationProvider",
+	function ($stateProvider, $urlRouterProvider, NotificationProvider) {
 		$stateProvider
 		.state({
 			name: "entrypoint",
-			url: "",
-			redirectOn: "login"
+			url: ""
 		})
 		.state({
 			name: "root",
-			url: "/",
-			redirectOn: "login"
+			url: "/"
 		})
 		.state({
 			name: "login",
@@ -52,7 +49,6 @@
 			controller: "MainController"
 		});
 		
-		//Notification tool config
 		NotificationProvider.setOptions({
 			delay: 10000,
 			startTop: 20,
@@ -65,41 +61,34 @@
 		});
 	}]);
 	
-	//Validation decorator config
 	app.run(['bootstrap3ElementModifier', function (bootstrap3ElementModifier) {
 		bootstrap3ElementModifier.enableValidationStateIcons(true);
 	}]);
 	
-	//Redirection on not-authenticated
 	app.run( function ($rootScope, $location, $state, $firebaseAuth) {
+		//Routing rules
 		$rootScope.$on( '$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
-			//If authenticated
-			if ($firebaseAuth().$getAuth()) {
-				if (toState.name === "entrypoint" ||
-						toState.name === "root" ||
-						toState.name === "login" ||
-						toState.name === "forgotpassword" ||
-					  toState.name === "emailaction") {
-					e.preventDefault();//stop current execution
-					$state.go('main');//go to main
-				}
+			if (["entrypoint", "root"].indexOf(toState.name) > -1) {
+				e.preventDefault();
+				$state.go("login");
 			} else {
-				if (toState.name === "login" ||
-						toState.name === "forgotpassword" ||
-						toState.name === "emailaction") {
-					return;//no need to redirect
+				if (["login", "forgotpassword", "emailaction"].indexOf(toState.name) > -1) {
+					if ($firebaseAuth().$getAuth()) {
+						e.preventDefault();
+						$state.go('main');
+					}
+				} else {
+					if (!$firebaseAuth().$getAuth()) {
+						e.preventDefault();
+						$state.go('login');
+					}
 				}
-				
-				e.preventDefault();//stop current execution
-				$state.go('login');//go to login
 			}
 		});
 		
-		//When authentication state changed go to 
+		//When authentication state changed to "signed in" go to main
 		$firebaseAuth().$onAuthStateChanged( function (firebaseUser) {
-      if (!firebaseUser) {
-				$state.go('login');//go to login
-			}	else {
+      if (firebaseUser) {
 				$state.go('main');//go to main
 			}
     });
