@@ -3,19 +3,21 @@
 	"use strict";
 	var app = angular.module("app");
 	
-	app.directive('fmEmail', function (defaultErrorMessageResolver) {
+	app.directive('vlEmail', function (defaultErrorMessageResolver) {
     defaultErrorMessageResolver.getErrorMessages().then( function (errorMessages) {
-      errorMessages.fmEmail = "Please enter a valid email address";
+      errorMessages.vlEmail = "Please enter a valid email address";
     });
     return {
       restrict: "A",
       require: "ngModel",
       link: function(scope, element, attributes, ngModel) {
-        ngModel.$validators.fmEmail = function(modelValue) {
+				if (!ngModel) return;
+				
+        ngModel.$validators.vlEmail = function(modelValue) {
           return /.+@.+\..+/.test(modelValue);
         };
   
-        scope.$watch("fmEmail", function () {
+        scope.$watch("vlEmail", function () {
           ngModel.$validate();
         });
       }
