@@ -7,6 +7,7 @@
 		$scope.forgotpassword = {};
 		$scope.forgotpassword.email = "";
 		$scope.forgotpassword.sent = false;
+		
 		$scope.forgotpassword.send = function () {
 			$firebaseAuth().$sendPasswordResetEmail($scope.forgotpassword.email)
 			.then( function () {

@@ -38,7 +38,7 @@
 		})
 		.state({
 			name: "emailaction",
-			url: "/emailaction",
+			url: "/emailaction?mode&oobCode&apiKey",
 			templateUrl: "app/emailaction/emailaction.template.html",
 			controller: "EmailactionController"
 		})

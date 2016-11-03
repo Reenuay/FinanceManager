@@ -1,34 +1,41 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-show="emailaction.verified">
 	<!-- Offset for large and medium devices -->
 	<div class="vert-offset-top-8 hidden-xs hidden-sm"></div>
 	<div class="row">
 		<div class="col-xs-12 col-sm-10 col-md-6 col-lg-5 col-centered">
 			<div class="panel panel-default">
 				<div class="panel-heading text-center">
-					<h1 ng-if="emailaction.mode=='resetPassword'">Enter new password.<span class="btn-lg glyphicon glyphicon-lock glyphicon-size-md"></span></h1>
+					<h1>Enter new password.<span class="btn-lg glyphicon glyphicon-lock glyphicon-size-md"></span></h1>
 				</div>
-				<div class="panel-body">
-					<form ng-submit="emailaction.change()" ng-if="emailaction.mode=='resetPassword'" class="form-horizontal" role="form" name="ChangePasswordForm" novalidate>
+				<div class="panel-body" ng-switch="emailaction.mode">
+					<form ng-submit="emailaction.rp.change()" ng-switch-when="resetPassword" class="form-horizontal" role="form" name="ChangePasswordForm" novalidate>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" name="password">Email</label>
+							<div class="col-sm-8">
+								<p ng-bind="emailaction.email" class="form-control-static"></p>
+							</div>
+						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" name="password">New</label>
 							<div class="col-sm-8">
-								<input ng-model="emailaction.newpassword" type="newpassword" ng-model-options="{updateOn: 'blur'}" class="form-control" placeholder="New Password" name="newpassword" required />
+								<input ng-model="emailaction.newpassword" ng-minlength="6" type="{{emailaction.rp.type}}" class="form-control" placeholder="New Password" name="newpassword" required />
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group" ng-show="ChangePasswordForm.newpassword.$valid">
 							<label class="col-sm-2 control-label" name="confirmpassword">Confirm</label>
 							<div class="col-sm-8">
-								<input ng-model="emailaction.confirmpassword" type="password" ng-model-options="{updateOn: 'blur'}" class="form-control" placeholder="Confirm Password" name="confirmpassword" required />
+								<input ng-model="emailaction.confirmpassword" ng-minlength="6" vl-pass-check="emailaction.newpassword" type="{{emailaction.rp.type}}" class="form-control" placeholder="Confirm Password" name="confirmpassword" required />
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-8">
-								<u class="text-muted" ui-sref="login" role="button">Log in</u>
+								<input type="checkbox" ng-model="emailaction.rp.show" ng-click="emailaction.rp.toggle()" disable-valid-styling="true" disable-invalid-styling="true" />
+								Show password
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-8">
-								<button type="submit" class="btn btn-default">Change <span class="glyphicon glyphicon-refresh text-muted"></span></button>
+								<button type="submit" class="btn btn-default">Change <span class="glyphicon glyphicon-lock text-muted"></span></button>
 							</div>
 						</div>
 					</form><!-- Form end -->
