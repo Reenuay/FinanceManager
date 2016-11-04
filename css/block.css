@@ -2,3 +2,7 @@
 	float: none;
   margin: 0 auto;
 }
+
+.navbar-brand {
+	padding: 5px;
+}
