@@ -11,7 +11,7 @@
 		$scope.login.submit = function () {
 			$firebaseAuth().$signInWithEmailAndPassword($scope.login.email, $scope.login.password)
 			.then( function (firebaseUser) {
-				$state.go("main");
+				$state.go("main.categories");
 			})
 			.catch( function (error) {
 				Notification.error(error.message);

@@ -42,11 +42,16 @@
 			templateUrl: "app/emailaction/emailaction.template.html",
 			controller: "EmailactionController"
 		})
-		.state({
-			name: "main",
+		.state("main", {
 			url: "/main",
+			abstract: true,
 			templateUrl: "app/main/main.template.html",
 			controller: "MainController"
+		})
+		.state("main.categories", {
+			url: "/categories",
+			templateUrl: "app/main/categories/categories.template.html",
+			controller: "CategoriesController"
 		});
 		
 		NotificationProvider.setOptions({
@@ -75,7 +80,7 @@
 				if (["login", "forgotpassword", "emailaction"].indexOf(toState.name) > -1) {
 					if ($firebaseAuth().$getAuth()) {
 						e.preventDefault();
-						$state.go('main');
+						$state.go('main.categories');
 					}
 				} else {
 					if (!$firebaseAuth().$getAuth()) {
@@ -89,7 +94,7 @@
 		//When authentication state changed to "signed in" go to main
 		$firebaseAuth().$onAuthStateChanged( function (firebaseUser) {
       if (firebaseUser) {
-				$state.go('main');//go to main
+				$state.go('main.categories');//go to main
 			}
     });
 	});

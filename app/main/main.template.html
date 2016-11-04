@@ -3,21 +3,36 @@
 		<div class="col-xs-12">
 			<nav class="navbar navbar-default">
 				<div class="container-fluid">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle" ng-click="navbar.collapsed = !navbar.collapsed">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand">Brand</a>
+					<div class="row">
+						<div class="col-md-offset-1 col-md-10">
+							<div class="navbar-header">
+								<button type="button" class="navbar-toggle" ng-click="navbar.collapsed = !navbar.collapsed">
+									<span class="sr-only">Toggle navigation</span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
+								<a class="navbar-brand">
+									<img alt="Finance Manager" src="/img/brand.png" />
+								</a>
+							</div>
+							<div class="collapse navbar-collapse" ng-class="navbar.collapsed && 'in'">
+								<ul class="nav navbar-nav">
+									<li ng-repeat="link in navbar.links track by $index">
+										<a ui-sref="{{link.sref}}">
+											{{link.name}} <span class="glyphicon glyphicon-{{link.icon}}"></span>
+										</a>
+									</li>
+								</ul>
+								<ul class="nav navbar-nav navbar-right">
+								</ul>
+							</div>
+						</div>
 					</div>
-					<div class="collapse navbar-collapse" ng-class="navbar.collapsed && 'in'">
-						<ul class="nav navbar-nav">
-							<li><a ui-sref="main">Main</a></li>
-						</ul>
-						<ul class="nav navbar-nav navbar-right">
-						</ul>
+					<div class="row">
+						<div class="col-md-offset-3 col-md-4">
+							<ui-view></ui-view>
+						</div>
 					</div>
 				</div>
 			</nav>
