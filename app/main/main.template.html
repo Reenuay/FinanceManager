@@ -20,7 +20,7 @@
 								<ul class="nav navbar-nav">
 									<li ng-repeat="link in navbar.links track by $index">
 										<a ui-sref="{{link.sref}}">
-											{{link.name}} <span class="glyphicon glyphicon-{{link.icon}}"></span>
+											{{link.name}} <span class="{{link.icon}}"></span>
 										</a>
 									</li>
 								</ul>
@@ -29,13 +29,13 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-offset-3 col-md-4">
-							<ui-view></ui-view>
-						</div>
-					</div>
 				</div>
 			</nav>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-offset-3 col-md-4">
+			<ui-view></ui-view>
 		</div>
 	</div>
 	<div class="row">

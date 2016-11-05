@@ -7,7 +7,7 @@
 		$scope.navbar = {};
 		$scope.navbar.collapsed = false;
 		$scope.navbar.links = [
-			{name: "Categories", sref: "main.categories", icon: "tag"}
+			{name: "Categories", sref: "main.categories", icon: "glyphicon glyphicon-tag"}
 		];
 	}]);
 }());
