@@ -8,6 +8,6 @@
 		$scope.navbar.collapsed = false;
 		$scope.navbar.links = [
 			{name: "Categories", sref: "main.categories", icon: "tag"}
-		]
+		];
 	}]);
 }());

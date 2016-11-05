@@ -21,10 +21,6 @@
 			url: ""
 		})
 		.state({
-			name: "root",
-			url: "/"
-		})
-		.state({
 			name: "login",
 			url: "/login",
 			templateUrl: "app/login/login.template.html",
@@ -43,13 +39,13 @@
 			controller: "EmailactionController"
 		})
 		.state("main", {
-			url: "/main",
+			url: "/",
 			abstract: true,
 			templateUrl: "app/main/main.template.html",
 			controller: "MainController"
 		})
 		.state("main.categories", {
-			url: "/categories",
+			url: "categories",
 			templateUrl: "app/main/categories/categories.template.html",
 			controller: "CategoriesController"
 		});
@@ -73,7 +69,7 @@
 	app.run( function ($rootScope, $location, $state, $firebaseAuth) {
 		//Routing rules
 		$rootScope.$on( '$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
-			if (["entrypoint", "root"].indexOf(toState.name) > -1) {
+			if (["entrypoint"].indexOf(toState.name) > -1) {
 				e.preventDefault();
 				$state.go("login");
 			} else {
