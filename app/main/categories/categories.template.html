@@ -1,5 +1,40 @@
-<form name="AddCategorieForm" class="form-inline" role="form" novalidate>
-	<div class="form-group">
-		<label class="control-label"></label>
+<div class="col-md-offset-2 col-md-3">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3>Categories <span class="glyphicon glyphicon-tag glyphicon-size-sm"></span></h3>
+		</div>
+		<div class="panel-body">
+			<div class="list-group">
+				<a class="list-group-item" ng-repeat="categorie in categories.list track by $index">
+					<span>
+						<span class="badge" role="button"><span class="fa {{categorie.icon}}"></span></span>
+					</span>
+					<span>
+						{{categorie.name}}
+						<span ng-click="categories.remove(categorie)" class="glyphicon glyphicon-remove text-danger pull-right" role="button"></span>
+					</span>
+				</a>
+			</div>
+		</div>
 	</div>
-</form>
+</div>
+<div class="col-md-3">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3>Add <span class="glyphicon glyphicon-plus glyphicon-size-sm"></span></h3>
+		</div>
+		<div class="panel-body">
+			<form name="AddCategorieForm" class="form-inline" role="form" novalidate>
+				<div class="form-group">
+					<div class="input-group">
+						<input ng-model="categories.name" type="text" class="form-control" name="name" placeholder="Name" disable-valid-styling="true" disable-invalid-styling="true" required />
+						<span class="input-group-btn">
+							<label class="control-label sr-only" name="name">Add</label>
+							<button ng-click="categories.add()" class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+						</span>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
