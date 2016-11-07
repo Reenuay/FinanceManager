@@ -10,7 +10,7 @@
     messagingSenderId: "172763067741"
   });
 	
-  var app = angular.module("app", ["firebase", "ui.router", "ui.bootstrap", "ui-notification", "jcs-autoValidate"]);
+  var app = angular.module("app", ["firebase", "ui.router", "ui.bootstrap", "ui-notification", "jcs-autoValidate", "ui-iconpicker"]);
 	
 	/*app config*/
 	app.config(["$stateProvider", "$urlRouterProvider", "NotificationProvider",
@@ -90,7 +90,7 @@
 		//When authentication state changed to "signed in" go to main
 		$firebaseAuth().$onAuthStateChanged( function (firebaseUser) {
       if (firebaseUser) {
-				$state.go('main.categories');//go to main
+				$state.go('main.categories');
 			}
     });
 	});
