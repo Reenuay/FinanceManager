@@ -8,7 +8,7 @@
 		$scope.categories.name = "";
 		$scope.categories.list = $firebaseArray($userData().child("categories"));
 		$scope.categories.add = function () {
-			$scope.categories.list.$add({name: $scope.categories.name, icon: "fa-cutlery"});
+			$scope.categories.list.$add({name: $scope.categories.name, icon: $scope.categories.icon});
 		};
 		$scope.categories.remove = function (item) {
 			$scope.categories.list.$remove(item);
