@@ -6,13 +6,9 @@
 		<div class="panel-body">
 			<div class="list-group">
 				<a class="list-group-item" ng-repeat="categorie in categories.list track by $index">
-					<span>
-						<span class="badge" role="button"><span class="{{categorie.icon}}"></span></span>
-					</span>
-					<span>
-						{{categorie.name}}
-						<span ng-click="categories.remove(categorie)" class="glyphicon glyphicon-remove text-danger pull-right" role="button"></span>
-					</span>
+					<span class="{{categorie.icon}}"></span> 
+					{{categorie.name}}
+					<span ng-click="categories.remove(categorie)" class="glyphicon glyphicon-remove text-danger pull-right" role="button"></span>
 				</a>
 			</div>
 		</div>
@@ -33,12 +29,9 @@
 				</div>
 				<div class="form-group">
 					<label class="control-label sr-only" name="icon">Icon</label>
-					<div class="col-md-12">
-						<ui-iconpicker ng-model="categories.icon" value="glyphicon glyphicon-tag" groups="bootstrap font-awesome"></ui-iconpicker>
+					<div class="col-md-2">
 					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-md-12">
+					<div class="col-md-2">
 						<button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
 					</div>
 				</div>
