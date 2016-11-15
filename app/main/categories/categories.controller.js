@@ -7,10 +7,10 @@
     $scope.categories = {};
 		$scope.categories.name = "";
 		$scope.categories.list = $firebaseArray($userData().child("categories"));
-		$scope.categories.color = "#fff";
+		$scope.categories.color = "#000";
 		
 		$scope.categories.add = function () {
-			$scope.categories.list.$add({name: $scope.categories.name, icon: $scope.categories.icon});
+			$scope.categories.list.$add({name: $scope.categories.name, icon: $scope.categories.icon, color: $scope.categories.color});
 		};
 		
 		$scope.categories.remove = function (item) {
