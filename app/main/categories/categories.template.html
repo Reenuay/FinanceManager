@@ -12,29 +12,30 @@
 								<div class="input-group">
 									<input ng-model="categories.name" ng-model-options="{updateOn: 'blur'}" type="text" class="form-control" name="name" placeholder="Name" disable-valid-styling="true" disable-invalid-styling="true" maxlength="45" required />
 									<span class="input-group-btn">
-										<ui-iconpicker ng-model="categories.icon" groups="bootstrap font-awesome" name="icon"></ui-iconpicker>
-										<button colorpicker type="button" class="btn btn-default" ng-model="categories.color">
+										<ui-iconpicker ng-model="categories.icon" groups="bootstrap font-awesome" name="icon" uib-tooltip="Icon"></ui-iconpicker>
+										<button colorpicker type="button" class="btn btn-default" ng-model="categories.color" uib-tooltip="Color">
 											<span class="fa fa-paint-brush" style="color:{{categories.color}}"></span> 
 											<span class="caret"></span>
 										</button>
-										<button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
+										<button class="btn btn-default" uib-tooltip="Add"><span class="glyphicon glyphicon-plus"></span></button>
 									</span>
 								</div>
 							</div>
-							<hr />
+							<hr/>
 						</form>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-12">
 						<div class="list-group">
-							<a class="list-group-item" ng-repeat="categorie in categories.list track by $index">
+							<a class="list-group-item" ng-repeat="categorie in categories.list track by $index" ng-if="categories.list.length > 0" ng-click="categories.select($index)">
 								<span class="{{categorie.icon}}" style="color: {{categorie.color}}"></span> 
 								<span>{{categorie.name}}</span>
-								<span class="badge" role="button" ng-click="categories.remove(categorie)" uib-tooltip="Delete">
+								<span class="badge" role="button" ng-click="categories.remove(categorie)" uib-tooltip="Delete&nbsp;{{categorie.name}}">
 									<span class="glyphicon glyphicon-remove" ></span>
 								</span>
 							</a>
+							<a class="list-group-item text-center" ng-if="categories.list.length === 0">No categories yet. Add new one.</a>
 						</div>
 					</div>
 				</div>

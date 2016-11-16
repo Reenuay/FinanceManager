@@ -35,5 +35,8 @@
 		$scope.categories.remove = function (item) {
 			$scope.categories.list.$remove(item);
 		};
+		
+		$scope.categories.select = function (index) {
+		};
 	}]);
 }());
