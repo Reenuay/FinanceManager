@@ -16,13 +16,5 @@
 		$scope.categories.remove = function (item) {
 			$scope.categories.list.$remove(item);
 		};
-		
-		$scope.categories.select = function (index) {
-			if ($scope.categories.selected === index) {
-				$scope.categories.selected = undefined;
-			} else {
-				$scope.categories.selected = index;
-			}
-		};
 	}]);
 }());

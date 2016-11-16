@@ -62,13 +62,14 @@
 		});
 	}]);
 	
-	app.run(['bootstrap3ElementModifier', function (bootstrap3ElementModifier) {
+	app.run(["bootstrap3ElementModifier", "validator", function (bootstrap3ElementModifier, validator) {
 		bootstrap3ElementModifier.enableValidationStateIcons(true);
+		validator.defaultFormValidationOptions.validateNonVisibleControls = false;
 	}]);
 	
 	app.run( function ($rootScope, $location, $state, $firebaseAuth) {
 		//Routing rules
-		$rootScope.$on( '$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
+		$rootScope.$on( "$stateChangeStart", function (e, toState, toParams, fromState, fromParams) {
 			if (["entrypoint"].indexOf(toState.name) > -1) {
 				e.preventDefault();
 				$state.go("login");
