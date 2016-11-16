@@ -10,7 +10,7 @@
 						<form ng-submit="categories.add()" name="AddCategorieForm" class="form-inline" role="form" disable-dynamic-validation="true" novalidate>
 							<div class="form-group">
 								<div class="input-group">
-									<input ng-model="categories.name" ng-model-options="{updateOn: 'blur'}" type="text" class="form-control" name="name" placeholder="Name" disable-valid-styling="true" disable-invalid-styling="true" required />
+									<input ng-model="categories.name" ng-model-options="{updateOn: 'blur'}" type="text" class="form-control" name="name" placeholder="Name" disable-valid-styling="true" disable-invalid-styling="true" maxlength="45" required />
 									<span class="input-group-btn">
 										<ui-iconpicker ng-model="categories.icon" groups="bootstrap font-awesome" name="icon"></ui-iconpicker>
 										<button colorpicker type="button" class="btn btn-default" ng-model="categories.color">
@@ -31,7 +31,7 @@
 							<a class="list-group-item" ng-repeat="categorie in categories.list track by $index">
 								<span class="{{categorie.icon}}" style="color: {{categorie.color}}"></span> 
 								<span>{{categorie.name}}</span>
-								<span class="badge" role="button" ng-click="categories.remove(categorie)">
+								<span class="badge" role="button" ng-click="categories.remove(categorie)" uib-tooltip="Delete">
 									<span class="glyphicon glyphicon-remove" ></span>
 								</span>
 							</a>
