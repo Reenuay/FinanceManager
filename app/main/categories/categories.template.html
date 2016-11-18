@@ -27,8 +27,21 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-12">
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-search"></span>
+								</span>
+								<input ng-model="categories.search" type="text" class="form-control" placeholder="Search" maxlength="45" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
 						<div class="list-group">
-							<a class="list-group-item" ng-repeat="categorie in categories.list track by $index" ng-if="categories.list.length > 0">
+							<!-- repeating list items -->
+							<a class="list-group-item" ng-repeat="categorie in categories.list | filter:categories.search track by $index" ng-if="categories.list.length > 0" ng-dblclick="categories.edit($index)">
 								<span class="{{categorie.icon}}" style="color: {{categorie.color}}" ng-if="!categorie.editing"></span> 
 								<span ng-bind="categorie.name" ng-if="!categorie.editing"></span>
 								<span class="badge" role="button" ng-click="categories.remove(categorie)" ng-if="!categorie.editing">
