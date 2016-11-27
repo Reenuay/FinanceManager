@@ -48,7 +48,7 @@
 					<div class="col-xs-12">
 						<div class="list-group">
 							<!-- repeating list items -->
-							<a class="list-group-item" ng-repeat="categorie in filtered = (categories.list | filter:categories.search) track by $index" ng-if="categories.list.length > 0">
+							<a class="list-group-item" ng-repeat="categorie in filtered = (categories.list | filter:{name:categories.search}) track by $index" ng-if="categories.list.length > 0">
 								<span class="{{categorie.icon}}" style="color: {{categorie.color}}" ng-if="!categorie.editing"></span> 
 								<span ng-bind="categorie.name" ng-if="!categorie.editing"></span>
 								<span class="badge" role="button" ng-click="categories.remove(categorie)" ng-if="!categorie.editing">
