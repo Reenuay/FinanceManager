@@ -67,19 +67,22 @@
 		
 		//edits categorie
 		$scope.categories.edit = function (index) {
+			//selector function
 			var f = function () {
-				//select current
+				//use index passed by user input to select list item and make selected item editing
 				$scope.categories.list[index].editing = true;
 				//write index
 				$scope.categories.selected = index;
 			};
-			//if there is selected one deselect it
+			
+			//if there is selected one, deselect it, cancel its changes and select new by index
 			if ($scope.categories.selected !== undefined) {
 				$scope.categories.list[$scope.categories.selected].editing = false;
 				$scope.categories.cancel().$loaded()
 				.then(f)
 				.catch(error);
 			} else {
+				//else just select new by index
 				f();
 			}
 		};
@@ -94,6 +97,7 @@
 		$scope.categories.save = function (index) {
 			//deselect item
 			$scope.categories.selected = undefined;
+			//delete editing property because database will not accept it
 			delete $scope.categories.list[index].editing;
 			//save it
 			$scope.categories.list.$save(index)

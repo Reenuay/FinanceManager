@@ -6,3 +6,10 @@
 .navbar-brand {
 	padding: 5px 15px;
 }
+
+.hide-text {
+	display: inline-block;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	max-width: 60%;
+}
