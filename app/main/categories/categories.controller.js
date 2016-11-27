@@ -66,23 +66,23 @@
 		};
 		
 		//edits categorie
-		$scope.categories.edit = function (index) {
+		$scope.categories.edit = function (category) {
 			//selector function
 			var f = function () {
-				//use index passed by user input to select list item and make selected item editing
-				$scope.categories.list[index].editing = true;
-				//write index
-				$scope.categories.selected = index;
+				//select list item and make selected item editing
+				$scope.categories.selected = category.$id;
+				$scope.categories.list.$getRecord($scope.categories.selected).editing = true;
 			};
 			
-			//if there is selected one, deselect it, cancel its changes and select new by index
+			//if there is selected one, deselect it, cancel its changes and select new
 			if ($scope.categories.selected !== undefined) {
-				$scope.categories.list[$scope.categories.selected].editing = false;
+				delete $scope.categories.list.$getRecord($scope.categories.selected).editing;
+				$scope.categories.selected = undefined;
 				$scope.categories.cancel().$loaded()
 				.then(f)
 				.catch(error);
 			} else {
-				//else just select new by index
+				//else just select new
 				f();
 			}
 		};
@@ -94,13 +94,13 @@
 		};
 		
 		//saves changes to database
-		$scope.categories.save = function (index) {
+		$scope.categories.save = function (category) {
 			//deselect item
 			$scope.categories.selected = undefined;
 			//delete editing property because database will not accept it
-			delete $scope.categories.list[index].editing;
+			delete category.editing;
 			//save it
-			$scope.categories.list.$save(index)
+			$scope.categories.list.$save(category)
 			.catch(error);
 		};
 	}]);

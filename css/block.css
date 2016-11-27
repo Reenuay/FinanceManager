@@ -13,3 +13,8 @@
 	overflow: hidden;
 	max-width: 60%;
 }
+
+.inline-block {
+	display: inline-block;
+	overflow: hidden;
+}
