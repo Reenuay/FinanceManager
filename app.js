@@ -46,8 +46,13 @@
 		})
 		.state("main.categories", {
 			url: "categories",
-			templateUrl: "app/main/categories/categories.template.html",
+			abstract: true,
+			templateUrl: "app/main/abstract.template.html",
 			controller: "CategoriesController"
+		})
+		.state("main.categories.list", {
+			url: "/list",
+			templateUrl: "app/main/categories/categories.list.template.html"
 		});
 		
 		NotificationProvider.setOptions({
@@ -77,7 +82,7 @@
 				if (["login", "forgotpassword", "emailaction"].indexOf(toState.name) > -1) {
 					if ($firebaseAuth().$getAuth()) {
 						e.preventDefault();
-						$state.go('main.categories');
+						$state.go('main.categories.list');
 					}
 				} else {
 					if (!$firebaseAuth().$getAuth()) {
@@ -91,7 +96,7 @@
 		//When authentication state changed to "signed in" go to main
 		$firebaseAuth().$onAuthStateChanged( function (firebaseUser) {
       if (firebaseUser) {
-				$state.go('main.categories');
+				$state.go('main.categories.list');
 			}
     });
 	});
