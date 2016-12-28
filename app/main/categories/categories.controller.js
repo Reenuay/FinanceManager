@@ -4,16 +4,42 @@
 	var app = angular.module("app");
 	
 	app.controller("CategoriesController", ["$scope", "$http", "$firebaseArray", "$userData", "Notification", function ($scope, $http, $firebaseArray, $userData, Notification) {
+		/*local variables*/
 		//error resolver
 		var error = function (error) {
 			Notification.error(error.message);
 		};
-		//load all categories
+		
+		//array to tree restructurer
+		var listToTree = function listToTree(list, root) {
+			if (root === undefined) {
+				root = {};	
+			}
+
+			if (!Array.isArray(root.children)) {
+				root.children = [];
+			}
+
+			for (var i = 0; i < list.length; i++) {
+				if (list[i].parent === root.$id) {
+					var el = list[i];
+					root.children.push(el);
+					listToTree(list, el);
+				}
+			}
+			return root;
+		};
+		
+		/*scope fields*/
+		//categories loader
 		$scope.loadCategories = function () {
 			$scope.categories.loaded = undefined;
-			($scope.categories.list = $firebaseArray($userData().child("categories"))).$loaded()
+			var list;
+			(list = $firebaseArray($userData().child("categories"))).$loaded()
 			.then(function () {
 				$scope.categories.loaded = true;
+				listToTree(list, $scope.categories);
+				console.log($scope.categories);
 			})
 			.catch(function (error) {
 				$scope.categories.loaded = false;
@@ -21,7 +47,8 @@
 			});
 		};
 		
-    $scope.categories = {};
+		
+		$scope.categories = [];
 		$scope.categories.name = "";
 		$scope.categories.color = "#000";
 		$scope.loadCategories();

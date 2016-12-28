@@ -30,39 +30,13 @@
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-search"></span>
 								</span>
-								<input ng-model="categories.search" type="text" class="form-control" placeholder="Search" maxlength="45" />
+								<input type="text" class="form-control" placeholder="Search" maxlength="45"/>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-12">
-						<div class="list-group">
-							<!-- repeating list items -->
-							<a class="list-group-item" ng-repeat="category in filtered = (categories.list | filter:{name:categories.search}) track by category.$id">
-								<span class="inline-block">
-									<span class="{{category.icon}}" style="color: {{category.color}}"></span>
-								</span>
-								<span ng-bind="category.name" class="hide-text"></span>
-							</a>
-							<!-- messages -->
-							<!-- loading -->
-							<a class="list-group-item text-center" ng-if="categories.loaded === undefined">
-								Loading <span class="fa fa-spinner fa-pulse"></span>
-							</a>
-							<!-- loaded but empty -->
-							<a class="list-group-item text-center" ng-if="categories.loaded && categories.list.length === 0">
-								No categories yet. Add one
-							</a>
-							<!-- error -->
-							<a class="list-group-item text-center" ng-if="categories.loaded === false" role="button" ng-click="loadcategories()">
-								Refresh <span class="glyphicon glyphicon-refresh"></span>
-							</a>
-							<!-- no matches -->
-							<a class="list-group-item text-center" ng-if="categories.loaded && categories.list.length !== 0 && filtered.length === 0" role="button">
-								No matches <span class="glyphicon glyphicon-search"></span>
-							</a>
-						</div>
 					</div>
 				</div>
 			</div>
