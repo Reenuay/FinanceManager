@@ -11,19 +11,27 @@
 		};
 		
 		//array to tree restructurer
-		var listToTree = function listToTree(list, root) {
-			if (root === undefined) {
+		var listToTree = function (list, root) {
+			//if type of root is not object make root empty object
+			if (typeof root !== "object") {
 				root = {};	
 			}
-
+			
+			//if root object field 'children' is not array make it empty array
 			if (!Array.isArray(root.children)) {
 				root.children = [];
 			}
-
+			
+			//for each category in list
 			for (var i = 0; i < list.length; i++) {
+				//if parent of category is current root object
 				if (list[i].parent === root.$id) {
 					var el = list[i];
+					//add label to element
+					el.label = el.name;
+					//push it into children list of root object
 					root.children.push(el);
+					//then scan list for children of pushed element
 					listToTree(list, el);
 				}
 			}
@@ -38,8 +46,7 @@
 			(list = $firebaseArray($userData().child("categories"))).$loaded()
 			.then(function () {
 				$scope.categories.loaded = true;
-				listToTree(list, $scope.categories);
-				console.log($scope.categories);
+				$scope.categories = listToTree(list);
 			})
 			.catch(function (error) {
 				$scope.categories.loaded = false;
@@ -79,7 +86,7 @@
 			}
 		};
 		
-		//removes categorie
+		//removes category
 		$scope.categories.remove = function (item) {
 			//delete item
 			$scope.categories.list.$remove(item)
