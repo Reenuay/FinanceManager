@@ -46,7 +46,7 @@
 			(list = $firebaseArray($userData().child("categories"))).$loaded()
 			.then(function () {
 				$scope.categories.loaded = true;
-				$scope.categories = listToTree(list);
+				$scope.categories = list;
 			})
 			.catch(function (error) {
 				$scope.categories.loaded = false;
@@ -54,6 +54,20 @@
 			});
 		};
 		
+		//returns an array with defined number of elements
+		$scope.getNumber = function (num) {
+				return new Array(num);
+		};
+		
+		//returns the parent count of given category
+		$scope.parentCount = function ($item) {
+			if ($item) {
+				var $parent = $scope.categories.$getRecord($item.parent);
+				return $parent ? 1 + $scope.parentCount($parent) : 0;
+			} else {
+				return 0;
+			}
+		};
 		
 		$scope.categories = [];
 		$scope.categories.name = "";
