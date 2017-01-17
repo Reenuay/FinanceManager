@@ -39,7 +39,7 @@
 					<div class="col-xs-12">
 						<ul class="list-group">
 							<li class="list-group-item" ng-repeat="category in categories">
-								<span class="indent" ng-repeat="i in getNumber(parentCount(category)) track by $index"></span>
+								<span style="padding-left: {{parentCount(category) * 20}}px" ng-if="parentCount(category)"></span>
 								<span class="caret"></span>
 								<span class="{{category.icon}}"></span>
 								<span ng-bind="category.name"></span>
