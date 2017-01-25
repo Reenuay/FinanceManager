@@ -3,153 +3,55 @@
 	"use strict";
 	var app = angular.module("app");
 	
-	app.controller("CategoriesController", ["$scope", "$http", "$firebaseArray", "$userData", "Notification", function ($scope, $http, $firebaseArray, $userData, Notification) {
-		/*local variables*/
-		//error resolver
-		var error = function (error) {
-			Notification.error(error.message);
-		};
-		
-		//array to tree restructurer
-		var listToTree = function (list, root) {
-			//if type of root is not object make root empty object
-			if (typeof root !== "object") {
-				root = {};	
-			}
-			
-			//if root object field 'children' is not array make it empty array
-			if (!Array.isArray(root.children)) {
-				root.children = [];
-			}
-			
-			//for each category in list
-			for (var i = 0; i < list.length; i++) {
-				//if parent of category is current root object
-				if (list[i].parent === root.$id) {
-					var el = list[i];
-					//add label to element
-					el.label = el.name;
-					//push it into children list of root object
-					root.children.push(el);
-					//then scan list for children of pushed element
-					listToTree(list, el);
-				}
-			}
-			return root;
-		};
-		
-		/*scope fields*/
-		//categories loader
-		$scope.loadCategories = function () {
-			$scope.categories.loaded = undefined;
-			var list;
-			(list = $firebaseArray($userData().child("categories"))).$loaded()
-			.then(function () {
-				$scope.categories.loaded = true;
-				$scope.categories = list;
-			})
-			.catch(function (error) {
-				$scope.categories.loaded = false;
-				Notification.error(error.message);
-			});
-		};
-		
-		//returns an array with defined number of elements
-		$scope.getNumber = function (num) {
-				return new Array(num);
-		};
+	app.controller("CategoriesController", ["$scope", "$http", "$firebaseArray", "$userData", "Notification", "$error", function ($scope, $http, $firebaseArray, $userData, Notification, $error) {
+		//this is intermediate array that will be used in js but never seen by user
+		var tempList = [];
 		
 		//returns the parent count of given category
-		$scope.parentCount = function ($item) {
-			if ($item) {
-				var $parent = $scope.categories.$getRecord($item.parent);
-				return $parent ? 1 + $scope.parentCount($parent) : 0;
-			} else {
+		function parentCount($item) {
+			if (!$item)
 				return 0;
-			}
-		};
+			//get the parent of given item
+			var $parent = tempList.$getRecord($item.parent);
+			//if parent exists look for its parent
+			return $parent ? 1 + parentCount($parent) : 0;
+		}
 		
-		$scope.categories = [];
-		$scope.categories.name = "";
-		$scope.categories.color = "#000";
-		$scope.loadCategories();
+		//this function will load categories. raw version will be stored in tempList and sorted will be in $scope.categories for user purposes
+		function loadCategories() {
+			(tempList = $firebaseArray($userData().child("categories")))
+			.$loaded().catch($error);
+		}
 		
-		//adds categorie
-		$scope.categories.add = function () {
-			if ($scope.categories.name) {
-				//make name string lower case and capitalize
-				var name = $scope.categories.name,
-						list = $scope.categories.list;
-				//Check for uniqueness
-				for (var item in list) {
-					if (name === list[item].name) {
-						Notification.error("There is already such a categorie.");
-						return;
-					}
-				}
-				
-				//add categorie
-				$scope.categories.list.$add({
-					name: name,
-					icon: $scope.categories.icon,
-					color: $scope.categories.color
-				})
-				.catch(error);
-			} else {
-				Notification.error("Name is required.");
-			}
-		};
-		
-		//removes category
-		$scope.categories.remove = function (item) {
-			//delete item
-			$scope.categories.list.$remove(item)
-			.then(function () {
-				//and if this item was selected make selection empty
-				if ($scope.categories.selected === item.$index) {
-					$scope.categories.selected = undefined;
-				}
-			})
-			.catch(error);
-		};
-		
-		//edits categorie
-		$scope.categories.edit = function (category) {
-			//selector function
-			var f = function () {
-				//select list item and make selected item editing
-				$scope.categories.selected = category.$id;
-				$scope.categories.list.$getRecord($scope.categories.selected).editing = true;
-			};
+		//sorts list so that the children elements follow after their parents
+		function sortLikeTree(list) {
+			if (!Array.isArray(list))
+				return;
+			if (list.length < 2)
+				return list;
+			list = list.slice(0, list.length);
+			list.sort(function (a, b) {
+				var _a = a.level,
+						_b = b.level;
+				return (_a > _b) - (_a < _b);
+			});
+			return list;
+		}
 			
-			//if there is selected one, deselect it, cancel its changes and select new
-			if ($scope.categories.selected !== undefined) {
-				delete $scope.categories.list.$getRecord($scope.categories.selected).editing;
-				$scope.categories.selected = undefined;
-				$scope.categories.cancel().$loaded()
-				.then(f)
-				.catch(error);
-			} else {
-				//else just select new
-				f();
-			}
-		};
-		
-		//cancels categorie editing, removes any changes and returns promise
-		$scope.categories.cancel = function () {
-			$scope.categories.selected = undefined;
-			return ($scope.categories.list = $firebaseArray($userData().child("categories")));
-		};
-		
-		//saves changes to database
-		$scope.categories.save = function (category) {
-			//deselect item
-			$scope.categories.selected = undefined;
-			//delete editing property because database will not accept it
-			delete category.editing;
-			//save it
-			$scope.categories.list.$save(category)
-			.catch(error);
-		};
+		//this function also needed in template
+		$scope.loadCategories = loadCategories;
+		//invoke this function to load categories at first time
+		loadCategories();
+		//watch the changes of the list
+		tempList.$watch(function () {
+			$scope.categories = sortLikeTree(tempList.map(function (el) {
+				return {
+					name: el.name,
+					color: el.color,
+					icon: el.icon,
+					level: parentCount(el)
+				};
+			}));
+		});
 	}]);
 }());
