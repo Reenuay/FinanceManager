@@ -38,7 +38,7 @@
 				<div class="row">
 					<div class="col-xs-12">
 						<ul class="list-group">
-							<li class="list-group-item" ng-repeat="category in categories">
+							<li class="list-group-item" ng-repeat="category in Sort(categories)">
 								<span style="padding-left: {{category.level * 20}}px" ng-if="category.level"></span>
 								<span class="caret"></span>
 								<span class="{{category.icon}}"></span>
