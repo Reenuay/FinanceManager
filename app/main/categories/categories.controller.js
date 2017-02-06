@@ -1,51 +1,62 @@
-/*global angular, firebase*/
+/*
+	This scripts represents logics to "Categories" interface.
+*/
+/*global angular*/
 (function () {
 	"use strict";
 	var app = angular.module("app");
 	
 	app.controller("CategoriesController", ["$scope", "$http", "$firebaseArray", "$userData", "Notification", "$error", function ($scope, $http, $firebaseArray, $userData, Notification, $error) {
+		
+		/*
+			Scope variables.
+		*/
+		$scope.searchValue = "";
+		
+		/*
+			Functions for template purposes.
+		*/
+		//Loads data from firebase. Is immediately invoked.
 		($scope.LoadCategories = function () {
 			($scope.categories = $firebaseArray($userData().child("categories")))
-			.$loaded().then(function () {
-				$scope.categories.forEach(function (value, index, array) {
-					value.level = ParentCount(value);
-				});
-			}).catch($error);
+			.$loaded().catch($error);
 		}());
 		
-		//sorts list so that the children elements follow after their parents
-		$scope.Sort = function (list) {
-			if (!Array.isArray(list))
-				return;
-			if (list.length < 2)
-				return list;
-			//copy array
-			list = list.slice(0, list.length);
-			//sort by level
-			list.sort(function (a, b) {
-				var _a = a.level,
-						_b = b.level;
-				return (_a > _b) - (_a < _b);
+		//After loading catgeories we must add some new fields to each one to use in template.
+		//Note that the $watch method is angularfire method and called only when data is updated from the server.
+		$scope.categories.$watch(function () {
+			//Add an additional data to categories.
+			$scope.categories.forEach(function (value, index, array) {
+				//Used to add padding in category rendering.
+				value.level = ParentCount($scope.categories, value);
 			});
-			//sort like tree
-			for (var i = 0; i < list.length; i++) {
-				for (var j = i + 1; j < list.length; j++) {
-					if (list[j].level !== list[i].level + 1)
-						continue;
-					list.splice(i + 1, 0, list.splice(j, 1)[0]);
-				}
-			}
-			return list;
-		};
+		});
 		
-		//returns the count of parents of given category
-		function ParentCount($item) {
-			if (!$item)
+		/*
+			Helper functions.
+		*/
+		//Returns the count of parents of given item.
+		function ParentCount(list, item) {
+			//Using here "==" operator instead of "===" because $id can be either string or number.
+			if (item.$id == item.parent)
 				return 0;
-			//get the parent of given item
-			var $parent = $scope.categories.$getRecord($item.parent);
-			//if parent exists look for its parent
-			return $parent ? 1 + ParentCount($parent) : 0;
+			//Get the parent of given item.
+			var parent = GetItem(list, item.parent);
+			//If parent exists look for its parent.
+			return parent ? 1 + ParentCount(list, parent) : 0;
+		}
+		
+		//Returns the item from list according to its id(can be string or number).
+		function GetItem(list, id) {
+			if (id === undefined)
+				return undefined;
+			//Find out an item with given id in list.
+			for (var i = 0; i < list.length; i++) {
+				//Using here "==" operator instead of "===" because id and $id can be either string or number.
+				if (list[i].$id == id)
+					return list[i];
+			}
+			return undefined;
 		}
 	}]);
 }());

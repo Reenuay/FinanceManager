@@ -3,7 +3,7 @@
 	"use strict";
 	var app = angular.module("app");
 	
-	app.controller("LoginController", ["$scope", "$firebaseAuth", "Notification", "$state", function ($scope, $firebaseAuth, Notification, $state) {
+	app.controller("LoginController", ["$scope", "$firebaseAuth", "$state", "$error",function ($scope, $firebaseAuth, $state, $error) {
 		$scope.login = {};
 		$scope.login.email = "";
 		$scope.login.password = "";
@@ -13,9 +13,7 @@
 			.then( function (firebaseUser) {
 				$state.go("main.categories.list");
 			})
-			.catch( function (error) {
-				Notification.error(error.message);
-			});
+			.catch($error);
 		};
 	}]);
 }());

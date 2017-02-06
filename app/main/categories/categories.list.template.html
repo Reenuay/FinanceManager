@@ -30,7 +30,7 @@
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-search"></span>
 								</span>
-								<input type="text" class="form-control" placeholder="Search" maxlength="45"/>
+								<input type="text" class="form-control" placeholder="Search" maxlength="45" ng-model="searchValue"/>
 							</div>
 						</div>
 					</div>
@@ -38,10 +38,10 @@
 				<div class="row">
 					<div class="col-xs-12">
 						<ul class="list-group">
-							<li class="list-group-item" ng-repeat="category in Sort(categories)">
-								<span style="padding-left: {{category.level * 20}}px" ng-if="category.level"></span>
+							<li class="list-group-item" ng-repeat="category in categories | filter:{name: searchValue} | orderParentChild:'$id':'parent' track by $index">
+								<span style="padding-left: {{category.level * 5}}%" ng-if="category.level"></span>
 								<span class="caret"></span>
-								<span class="{{category.icon}}"></span>
+								<span class="{{category.icon}}" style="color: {{category.color}}"></span>
 								<span ng-bind="category.name"></span>
 							</li>
 						</ul>
