@@ -7,6 +7,9 @@
 	(User decides what names he will give to that parameters ib objects)
 	Filter sorts objects in array in that way so every child comes after its parent.
 	This will give to an array a tree-like seeming for further use.
+	08.02.2017
+	openCloseSwitch parameter added. It is optional.
+	If true then the child elements will be added afterwards the parent.
 */
 /*global angular*/
 (function () {
@@ -14,7 +17,7 @@
 	var app = angular.module("app");
 	
 	app.filter("orderParentChild", function () {
-		return function (items, idField, parentField) {
+		return function (items, idField, parentField, openCloseSwitch) {
 			/*
 				Necessary checks.
 				Note that there is no checks for cycling in list.
@@ -34,11 +37,13 @@
 				Main function. Makes a recursive sort of array.
 			*/
 			function RecursiveSort(array, object, sortedArray) {
-				var length = array.length;
-				for (var i = 0; i < length; i++) {
-					if (array[i][parentField] == object[idField]) {
-						sortedArray.push(array[i]);
-						RecursiveSort(array, array[i], sortedArray);
+				if (object[openCloseSwitch] === true || Object.keys(object).length === 0) {
+					var length = array.length;
+					for (var i = 0; i < length; i++) {
+						if (array[i][parentField] == object[idField]) {
+							sortedArray.push(array[i]);
+							RecursiveSort(array, array[i], sortedArray);
+						}
 					}
 				}
 				return sortedArray;
