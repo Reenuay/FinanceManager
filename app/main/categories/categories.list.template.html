@@ -22,6 +22,18 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-12">
+						<div class="form-group">
+							<button class="btn btn-default" ng-click="search.ItemExpandAll()">
+								<span class="glyphicon glyphicon-plus"></span>
+							</button>
+							<button class="btn btn-default" ng-click="search.ItemCollapseAll()">
+								<span class="glyphicon glyphicon-minus"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
 						<ul class="list-group">
 							<li class="list-group-item"
 									ng-repeat="category in filtered =
@@ -42,14 +54,14 @@
 											ng-if="!category.open &&
 														 category.childrenCount > 0 &&
 														 search.viewMode !== ''"
-											ng-click="ItemExpand(category)">
+											ng-click="search.ItemExpand(category)">
 								</span>
 								<!-- Minus sign -->
 								<span class="glyphicon glyphicon-minus"
 											ng-if="category.open &&
 														 category.childrenCount > 0 &&
 														 search.viewMode !== ''"
-											ng-click="ItemCollapse(category)">
+											ng-click="search.ItemCollapse(category)">
 								</span>
 								<!-- Name of category -->
 								<span ng-bind="category.name"></span>

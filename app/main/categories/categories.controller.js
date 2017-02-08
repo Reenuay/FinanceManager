@@ -15,6 +15,22 @@
 		$scope.search.value = "";
 		$scope.search.viewMode = "$id";
 		$scope.search.order = "";
+		$scope.search.ItemExpand = function (item) {
+			item.open = true;
+		};
+		$scope.search.ItemCollapse = function (item) {
+			delete item.open;
+		};
+		$scope.search.ItemExpandAll = function () {
+			$scope.categories.forEach(function (element, index, array) {
+				element.open = true;
+			});
+		};
+		$scope.search.ItemCollapseAll = function () {
+			$scope.categories.forEach(function (element, index, array) {
+				delete element.open;
+			});
+		};
 		
 		/*
 			Functions for template purposes.
@@ -36,21 +52,13 @@
 		//Extends catgeories fields to further use in template.
 		$scope.ExtendFields = function (list) {
 			//Add an additional data to categories.
-			list.forEach(function (value, index, array) {
+			list.forEach(function (element, index, array) {
 				//Used to add padding in category rendering.
-				value.level = ParentCount(list, value);
+				element.level = ParentCount(list, element);
 				//Used to hide plus signs.
-				value.childrenCount = ChildrenCount(array, value.$id);
+				element.childrenCount = ChildrenCount(array, element.$id);
 			});
 			return list;
-		};
-		
-		$scope.ItemExpand = function (item) {
-			item.open = true;
-		};
-		
-		$scope.ItemCollapse = function (item) {
-			item.open = false;
 		};
 		
 		/*
