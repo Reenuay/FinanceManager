@@ -17,6 +17,8 @@
 		return function (items, idField, parentField) {
 			/*
 				Necessary checks.
+				Note that there is no checks for cycling in list.
+				If some of items are grandparents of themselves it can break your program.
 			*/
 			if (!Array.isArray(items) ||//Must be an array.
 					items.length < 2 ||//Must have a length more than 1.
@@ -29,42 +31,20 @@
 				return items;
 			
 			/*
-				Helper functions.
+				Main function. Makes a recursive sort of array.
 			*/
-			//Returns the count of parents of given item.
-			function ParentCount(list, item) {
-				//Using here "==" operator instead of "===" because "idField" and "parentField" fields can be either string or number.
-				if (item[idField] == item[parentField])
-					return 0;
-				//Get the parent of given item.
-				var parent = GetItem(list, item[parentField]);
-				//If parent exists look for its parent.
-				return parent ? 1 + ParentCount(list, parent) : 0;
-			}
-
-			//Returns the item from list according to its id(can be string or number).
-			function GetItem(list, id) {
-				//Find out an item with given id in list.
-				for (var i = 0; i < list.length; i++) {
-					//Using here "==" operator instead of "===" because id can be either string or number.
-					if (list[i][idField] == id)
-						return list[i];
+			function RecursiveSort(array, object, sortedArray) {
+				var length = array.length;
+				for (var i = 0; i < length; i++) {
+					if (array[i][parentField] == object[idField]) {
+						sortedArray.push(array[i]);
+						RecursiveSort(array, array[i], sortedArray);
+					}
 				}
-				return undefined;
+				return sortedArray;
 			}
 			
-			/*
-				Main logics.
-			*/
-			//Sort items by their levels.
-			items.sort(function (a, b) {
-				return 0;
-				var _a = ParentCount(items, a),
-						_b = ParentCount(items, b);
-				return (_a > _b) - (_a < _b);
-			});
-			
-			return items;
+			return RecursiveSort(items, {}, []);
 		};
 	});
 }());
