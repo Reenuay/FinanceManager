@@ -38,8 +38,8 @@
 			list.forEach(function (value, index, array) {
 				//Used to add padding in category rendering.
 				value.level = ParentCount(list, value);
-				
-				value.childrenCount = ChildrenCount(list, value);
+				//Used to display count of children and show or hide carets.
+				value.childrenCount = ChildrenCount(list, value.$id);
 			});
 			return list;
 		};
@@ -58,10 +58,11 @@
 			return parent ? 1 + ParentCount(list, parent) : 0;
 		}
 		
-		function ChildrenCount(list, item) {
+		//Returns the count of children of object with current id.
+		function ChildrenCount(list, id) {
 			var res = 0;
 			for (var i = 0; i < list.length; i++) {
-				res += list[i].parent == item.$id;
+				res += list[i].parent == id;
 			}
 			return res;
 		}

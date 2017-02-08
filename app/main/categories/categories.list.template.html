@@ -23,10 +23,26 @@
 				<div class="row">
 					<div class="col-xs-12">
 						<ul class="list-group">
-							<li class="list-group-item" ng-repeat="category in filtered = ExtendFields(categories | filter: {name: search.value} | orderBy: search.order | orderParentChild: search.viewMode: 'parent') track by $index" ng-if="filtered.length > 0">
-								<span style="padding-left: {{category.level * 5}}%" ng-if="category.level && search.viewMode !== ''"></span>
-								<span class="{{category.icon}}" style="color: {{category.color}}"></span>
+							<li class="list-group-item"
+									ng-repeat="category in filtered =
+														 ExtendFields
+														 (
+															 categories |
+															 filter: {name: search.value} |
+															 orderBy: search.order |
+															 orderParentChild: search.viewMode: 'parent'
+														 )
+														 track by $index"
+									ng-if="filtered.length > 0">
+								<span style="padding-left: {{category.level * 5}}%"
+											ng-if="category.level && search.viewMode !== ''"></span>
+								<span class="glyphicon glyphicon-plus" ng-if="!category.open && category.childrenCount > 0"></span>
+								<span class="glyphicon glyphicon-minus" ng-if="category.open"></span>
 								<span ng-bind="category.name"></span>
+								<span class="text-muted" ng-if="search.viewMode !== ''">
+									 - {{category.childrenCount}}
+								</span>
+								<span class="pull-right {{category.icon}}" style="color: {{category.color}}"></span>
 							</li>
 							<!-- messages -->
 							<!-- loading -->
