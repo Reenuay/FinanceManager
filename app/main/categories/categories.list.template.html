@@ -1,4 +1,87 @@
-<div class="col-md-offset-1 col-md-3">
+<div class="col-md-7 col-md-offset-1">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3>List <span class="glyphicon glyphicon-menu-hamburger glyphicon-size-sm"></span></h3>
+		</div>
+		<div class="panel-body">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-search"></span>
+								</span>
+								<input type="text" class="form-control" placeholder="Search" maxlength="45" ng-model="search.value"/>
+								<span class="input-group-addon">
+									{{filtered.length}}/{{categories.length}}
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<ul class="list-group">
+							<li class="list-group-item" ng-repeat="category in filtered = ExtendFields(categories | filter: {name: search.value} | orderBy: search.order | orderParentChild: search.viewMode: 'parent') track by $index" ng-if="filtered.length > 0">
+								<span style="padding-left: {{category.level * 5}}%" ng-if="category.level && search.viewMode !== ''"></span>
+								<span class="{{category.icon}}" style="color: {{category.color}}"></span>
+								<span ng-bind="category.name"></span>
+							</li>
+							<!-- messages -->
+							<!-- loading -->
+							<li class="list-group-item text-center" ng-if="categories.loaded === undefined">
+								Loading <span class="fa fa-spinner fa-pulse"></span>
+							</li>
+							<!-- loaded but empty -->
+							<li class="list-group-item text-center" ng-if="categories.loaded && categories.list.length === 0">
+								No categories yet. Add one.
+							</li>
+							<!-- error -->
+							<li class="list-group-item text-center" ng-if="categories.loaded === false" role="button" ng-click="loadCategories()">
+								Refresh <span class="glyphicon glyphicon-refresh"></span>
+							</li>
+							<!-- search -->
+							<li class="list-group-item text-center" ng-if="categories.length > 0 && filtered.length === 0">
+								No matches <span class="glyphicon glyphicon-search"></span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-md-3">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3>Sort <span class="glyphicon glyphicon-sort glyphicon-size-sm"></span></h3>
+		</div>
+		<div class="panel-body">
+			<p class="text-muted">View Mode</p>
+			<div class="btn-group btn-group-justified">
+				<label class="btn btn-default" ng-model="search.viewMode" uib-btn-radio="'$id'">
+					Tree
+				</label>
+				<label class="btn btn-default" ng-model="search.viewMode" uib-btn-radio="''">
+					Flat
+				</label>
+			</div>
+			<hr>
+			<p class="text-muted">Order by Name</p>
+			<div class="btn-group btn-group-justified">
+				<label class="btn btn-default" ng-model="search.order" uib-btn-radio="'-name'">
+					Desc
+				</label>
+				<label class="btn btn-default" ng-model="search.order" uib-btn-radio="''">
+					None
+				</label>
+				<label class="btn btn-default" ng-model="search.order" uib-btn-radio="'+name'">
+					Asc
+				</label>
+			</div>
+		</div>
+	</div>
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h3>Actions <span class="glyphicon glyphicon-flash glyphicon-size-sm"></span></h3>
@@ -13,41 +96,6 @@
 			<button class="btn btn-danger btn-block" disabled>
 				Delete <span class="glyphicon glyphicon-remove"></span>
 			</button>
-		</div>
-	</div>
-</div>
-<div class="col-md-7">
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h3>List <span class="glyphicon glyphicon-menu-hamburger glyphicon-size-sm"></span></h3>
-		</div>
-		<div class="panel-body">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-xs-12">
-						<div class="form-group">
-							<div class="input-group">
-								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-search"></span>
-								</span>
-								<input type="text" class="form-control" placeholder="Search" maxlength="45" ng-model="searchValue"/>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12">
-						<ul class="list-group">
-							<li class="list-group-item" ng-repeat="category in categories | filter:{name: searchValue} | orderParentChild:'$id':'parent' track by $index">
-								<span style="padding-left: {{category.level * 5}}%" ng-if="category.level"></span>
-								<span class="caret"></span>
-								<span class="{{category.icon}}" style="color: {{category.color}}"></span>
-								<span ng-bind="category.name"></span>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 </div>

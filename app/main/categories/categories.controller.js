@@ -11,7 +11,10 @@
 		/*
 			Scope variables.
 		*/
-		$scope.searchValue = "";
+		$scope.search = {};
+		$scope.search.value = "";
+		$scope.search.viewMode = "$id";
+		$scope.search.order = "";
 		
 		/*
 			Functions for template purposes.
@@ -19,18 +22,25 @@
 		//Loads data from firebase. Is immediately invoked.
 		($scope.LoadCategories = function () {
 			($scope.categories = $firebaseArray($userData().child("categories")))
-			.$loaded().catch($error);
+			.$loaded()
+			.then(function () {
+				$scope.categories.loaded = true;
+			})
+			.catch(function (error) {
+				Notification.error(error.message);
+				$scope.categories.loaded = false;
+			});
 		}());
 		
-		//After loading catgeories we must add some new fields to each one to use in template.
-		//Note that the $watch method is angularfire method and called only when data is updated from the server.
-		$scope.categories.$watch(function () {
+		//Extends catgeories fields to further use in template.
+		$scope.ExtendFields = function (list) {
 			//Add an additional data to categories.
-			$scope.categories.forEach(function (value, index, array) {
+			list.forEach(function (value, index, array) {
 				//Used to add padding in category rendering.
-				value.level = ParentCount($scope.categories, value);
+				value.level = ParentCount(list, value);
 			});
-		});
+			return list;
+		};
 		
 		/*
 			Helper functions.
