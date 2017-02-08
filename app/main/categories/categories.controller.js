@@ -38,6 +38,8 @@
 			list.forEach(function (value, index, array) {
 				//Used to add padding in category rendering.
 				value.level = ParentCount(list, value);
+				
+				value.childrenCount = ChildrenCount(list, value);
 			});
 			return list;
 		};
@@ -54,6 +56,14 @@
 			var parent = GetItem(list, item.parent);
 			//If parent exists look for its parent.
 			return parent ? 1 + ParentCount(list, parent) : 0;
+		}
+		
+		function ChildrenCount(list, item) {
+			var res = 0;
+			for (var i = 0; i < list.length; i++) {
+				res += list[i].parent == item.$id;
+			}
+			return res;
 		}
 		
 		//Returns the item from list according to its id(can be string or number).
