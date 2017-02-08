@@ -28,24 +28,36 @@
 														 ExtendFields
 														 (
 															 categories |
-															 filter: {name: search.value} |
-															 orderBy: search.order |
-															 orderParentChild: search.viewMode: 'parent': 'open'
-														 )
+															 filter: {name: search.value}
+														 ) |
+														 orderBy: search.order |
+														 orderParentChild: search.viewMode: 'parent': 'open'
 														 track by $index"
 									ng-if="filtered.length > 0">
 								<span style="padding-left: {{category.level * 5}}%"
-											ng-if="category.level && search.viewMode !== ''"></span>
+											ng-if="category.level && search.viewMode !== ''">
+								</span>
+								<!-- Plus sign -->
 								<span class="glyphicon glyphicon-plus"
-											ng-if="!category.open && category.childrenCount > 0 && search.viewMode !== ''"
-											ng-click="ItemExpand(category)"></span>
+											ng-if="!category.open &&
+														 category.childrenCount > 0 &&
+														 search.viewMode !== ''"
+											ng-click="ItemExpand(category)">
+								</span>
+								<!-- Minus sign -->
 								<span class="glyphicon glyphicon-minus"
-											ng-if="category.open && search.viewMode !== ''"
-											ng-click="ItemCollapse(category)"></span>
+											ng-if="category.open &&
+														 category.childrenCount > 0 &&
+														 search.viewMode !== ''"
+											ng-click="ItemCollapse(category)">
+								</span>
+								<!-- Name of category -->
 								<span ng-bind="category.name"></span>
-								<span class="text-muted" ng-if="search.viewMode !== ''">
+								<!-- Count of children -->
+								<span class="text-muted" ng-if="search.viewMode !== '' && category.childrenCount > 0">
 									 - {{category.childrenCount}}
 								</span>
+								<!-- Icon -->
 								<span class="pull-right {{category.icon}}" style="color: {{category.color}}"></span>
 							</li>
 							<!-- messages -->

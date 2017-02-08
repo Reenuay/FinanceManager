@@ -23,21 +23,15 @@
 		($scope.LoadCategories = function () {
 			($scope.categories = $firebaseArray($userData().child("categories")))
 			.$loaded()
+			.then(function () {
+				//Mark as loaded.
+				$scope.categories.loaded = true;
+			})
 			.catch(function (error) {
 				Notification.error(error.message);
 				$scope.categories.loaded = false;
 			});
 		}());
-		
-		//Watch for changes. This function will be called only when array was updated from server.
-		$scope.categories.$watch(function () {
-			//Mark as loaded.
-			$scope.categories.loaded = true;
-			$scope.categories.forEach(function (value, index, array) {
-				//Used to display count of children and show or hide carets.
-				value.childrenCount = ChildrenCount(array, value.$id);
-			});
-		});
 		
 		//Extends catgeories fields to further use in template.
 		$scope.ExtendFields = function (list) {
@@ -45,6 +39,8 @@
 			list.forEach(function (value, index, array) {
 				//Used to add padding in category rendering.
 				value.level = ParentCount(list, value);
+				//Used to hide plus signs.
+				value.childrenCount = ChildrenCount(array, value.$id);
 			});
 			return list;
 		};

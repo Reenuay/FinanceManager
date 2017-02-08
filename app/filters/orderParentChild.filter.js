@@ -34,22 +34,42 @@
 				return items;
 			
 			/*
+				Preparings for main function.
+			*/
+			var sortedArray = [];
+			
+			//Get the all identificators.
+			var ids = items.map(function (item) {
+				return item[idField];
+			});
+			
+			/*
 				Main function. Makes a recursive sort of array.
 			*/
 			function RecursiveSort(array, object, sortedArray) {
-				if (object[openCloseSwitch] === true || Object.keys(object).length === 0) {
+				if (
+						openCloseSwitch === "" ||
+						openCloseSwitch === undefined ||
+						object[openCloseSwitch] === true ||
+						Object.keys(object).length === 0
+					 )
+				{
 					var length = array.length;
 					for (var i = 0; i < length; i++) {
-						if (array[i][parentField] == object[idField]) {
+						if (
+								array[i][parentField] == object[idField] ||//If id of parent of the element equals to object's id.
+								(object[idField] === undefined && ids.indexOf(array[i][parentField] + "") < 0)//Or if object's id is undefined(it is empty object) and id of parent of the element is not in list of identificators.
+							 ) 
+						{
 							sortedArray.push(array[i]);
 							RecursiveSort(array, array[i], sortedArray);
 						}
 					}
 				}
-				return sortedArray;
 			}
 			
-			return RecursiveSort(items, {}, []);
+			RecursiveSort(items, {}, sortedArray);
+			return sortedArray;
 		};
 	});
 }());
