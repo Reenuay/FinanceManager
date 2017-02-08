@@ -36,9 +36,12 @@
 									ng-if="filtered.length > 0">
 								<span style="padding-left: {{category.level * 5}}%"
 											ng-if="category.level && search.viewMode !== ''"></span>
-								<span class="glyphicon glyphicon-plus" ng-if="!category.open && category.childrenCount > 0 && search.viewMode !== ''"></span>
+								<span class="glyphicon glyphicon-plus"
+											ng-if="!category.open && category.childrenCount > 0 && search.viewMode !== ''"
+											ng-click="ItemExpand(category)"></span>
 								<span class="glyphicon glyphicon-minus"
-											ng-if="category.open && search.viewMode !== ''"></span>
+											ng-if="category.open && search.viewMode !== ''"
+											ng-click="ItemCollapse(category)"></span>
 								<span ng-bind="category.name"></span>
 								<span class="text-muted" ng-if="search.viewMode !== ''">
 									 - {{category.childrenCount}}
