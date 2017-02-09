@@ -23,10 +23,14 @@
 				<div class="row">
 					<div class="col-xs-12">
 						<div class="form-group">
-							<button class="btn btn-default" ng-click="search.ItemExpandAll()">
+							<button class="btn btn-default"
+											ng-if="search.viewMode !== ''"
+											ng-click="search.ItemExpandAll()">
 								<span class="glyphicon glyphicon-plus"></span>
 							</button>
-							<button class="btn btn-default" ng-click="search.ItemCollapseAll()">
+							<button class="btn btn-default"
+											ng-if="search.viewMode !== ''"
+											ng-click="search.ItemCollapseAll()">
 								<span class="glyphicon glyphicon-minus"></span>
 							</button>
 						</div>
