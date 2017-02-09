@@ -51,7 +51,7 @@
 														 track by $index"
 									ng-if="filtered.length > 0"
 									ng-click="actions.Select(category)"
-									ng-class="{'active': category.selected}"
+									ng-class="{'active': search.selected === category}"
 									role="button">
 								<span style="padding-left: {{category.level * 5}}%"
 											ng-if="category.level && search.viewMode !== ''">

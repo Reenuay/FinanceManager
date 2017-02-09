@@ -38,17 +38,15 @@
 		};
 		//This object contains actions for categories.
 		$scope.actions = {};
+		$scope.actions.name = "";
+		$scope.actions.icon = "fa fa-asterisk";
+		$scope.actions.color = "black";
 		//Selects a category.
 		$scope.actions.Select = function (item) {
-			for (var i = 0; i < $scope.categories.length; i++) {
-				if ($scope.categories[i].selected) {
-					delete $scope.categories[i].selected;
-					if ($scope.categories[i] !== item)
-						item.selected = true;
-					return;
-				}
-			}
-			item.selected = true;
+			if ($scope.search.selected !== item)
+				$scope.search.selected = item;
+			else
+				delete $scope.search.selected;
 		};
 		
 		/*
