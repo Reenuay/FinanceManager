@@ -13,8 +13,12 @@
 		*/
 		$scope.search = {};
 		$scope.search.value = "";
+		//'$id' for true and '' for false. Used for many logics in template.
+		//For example, for hiding plus and minus signs, parent-child ordering and so on.
 		$scope.search.viewMode = "$id";
+		//can be '-name', '', '+name'. Used for name ordering.
 		$scope.search.order = "";
+		//Functions for expanding and collapsing one or more item.
 		$scope.search.ItemExpand = function (item) {
 			item.open = true;
 		};
@@ -79,6 +83,7 @@
 		function ChildrenCount(list, id) {
 			var res = 0;
 			for (var i = 0; i < list.length; i++) {
+				//Count childrens.
 				res += list[i].parent == id;
 			}
 			return res;

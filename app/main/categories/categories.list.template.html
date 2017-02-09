@@ -54,14 +54,16 @@
 											ng-if="!category.open &&
 														 category.childrenCount > 0 &&
 														 search.viewMode !== ''"
-											ng-click="search.ItemExpand(category)">
+											ng-click="search.ItemExpand(category)"
+											role="button">
 								</span>
 								<!-- Minus sign -->
 								<span class="glyphicon glyphicon-minus"
 											ng-if="category.open &&
 														 category.childrenCount > 0 &&
 														 search.viewMode !== ''"
-											ng-click="search.ItemCollapse(category)">
+											ng-click="search.ItemCollapse(category)"
+											role="button">
 								</span>
 								<!-- Name of category -->
 								<span ng-bind="category.name"></span>
