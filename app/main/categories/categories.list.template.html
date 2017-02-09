@@ -38,8 +38,8 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-12">
-						<ul class="list-group">
-							<li class="list-group-item"
+						<div class="list-group">
+							<a class="list-group-item"
 									ng-repeat="category in filtered =
 														 ExtendFields
 														 (
@@ -49,7 +49,10 @@
 														 orderBy: search.order |
 														 orderParentChild: search.viewMode: 'parent': 'open'
 														 track by $index"
-									ng-if="filtered.length > 0">
+									ng-if="filtered.length > 0"
+									ng-click="actions.Select(category)"
+									ng-class="{'active': category.selected}"
+									role="button">
 								<span style="padding-left: {{category.level * 5}}%"
 											ng-if="category.level && search.viewMode !== ''">
 								</span>
@@ -58,44 +61,42 @@
 											ng-if="!category.open &&
 														 category.childrenCount > 0 &&
 														 search.viewMode !== ''"
-											ng-click="search.ItemExpand(category)"
-											role="button">
+											ng-click="search.ItemExpand(category);$event.stopPropagation()">
 								</span>
 								<!-- Minus sign -->
 								<span class="glyphicon glyphicon-minus"
 											ng-if="category.open &&
 														 category.childrenCount > 0 &&
 														 search.viewMode !== ''"
-											ng-click="search.ItemCollapse(category)"
-											role="button">
+											ng-click="search.ItemCollapse(category);$event.stopPropagation()">
 								</span>
 								<!-- Name of category -->
 								<span ng-bind="category.name"></span>
 								<!-- Count of children -->
-								<span class="text-muted" ng-if="search.viewMode !== '' && category.childrenCount > 0">
+								<span ng-if="search.viewMode !== '' && category.childrenCount > 0">
 									 - {{category.childrenCount}}
 								</span>
 								<!-- Icon -->
 								<span class="pull-right {{category.icon}}" style="color: {{category.color}}"></span>
-							</li>
+							</a>
 							<!-- messages -->
 							<!-- loading -->
-							<li class="list-group-item text-center" ng-if="categories.loaded === undefined">
+							<a class="list-group-item text-center" ng-if="categories.loaded === undefined">
 								Loading <span class="fa fa-spinner fa-pulse"></span>
-							</li>
+							</a>
 							<!-- loaded but empty -->
-							<li class="list-group-item text-center" ng-if="categories.loaded && categories.list.length === 0">
+							<a class="list-group-item text-center" ng-if="categories.loaded && categories.list.length === 0">
 								No categories yet. Add one.
-							</li>
+							</a>
 							<!-- error -->
-							<li class="list-group-item text-center" ng-if="categories.loaded === false" role="button" ng-click="loadCategories()">
+							<a class="list-group-item text-center" ng-if="categories.loaded === false" role="button" ng-click="loadCategories()">
 								Refresh <span class="glyphicon glyphicon-refresh"></span>
-							</li>
+							</a>
 							<!-- search -->
-							<li class="list-group-item text-center" ng-if="categories.length > 0 && filtered.length === 0">
+							<a class="list-group-item text-center" ng-if="categories.length > 0 && filtered.length === 0">
 								No matches <span class="glyphicon glyphicon-search"></span>
-							</li>
-						</ul>
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -137,7 +138,7 @@
 			<h3>Actions <span class="glyphicon glyphicon-flash glyphicon-size-sm"></span></h3>
 		</div>
 		<div class="panel-body">
-			<button class="btn btn-default btn-block">
+			<button class="btn btn-default btn-block" ui-sref="main.categories.add">
 				Add <span class="glyphicon glyphicon-plus"></span>
 			</button>
 			<button class="btn btn-default btn-block" disabled>

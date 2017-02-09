@@ -11,6 +11,7 @@
 		/*
 			Scope variables.
 		*/
+		//This object conatins view and sorting fields and methods.
 		$scope.search = {};
 		$scope.search.value = "";
 		//'$id' for true and '' for false. Used for many logics in template.
@@ -34,6 +35,20 @@
 			$scope.categories.forEach(function (element, index, array) {
 				delete element.open;
 			});
+		};
+		//This object contains actions for categories.
+		$scope.actions = {};
+		//Selects a category.
+		$scope.actions.Select = function (item) {
+			for (var i = 0; i < $scope.categories.length; i++) {
+				if ($scope.categories[i].selected) {
+					delete $scope.categories[i].selected;
+					if ($scope.categories[i] !== item)
+						item.selected = true;
+					return;
+				}
+			}
+			item.selected = true;
 		};
 		
 		/*

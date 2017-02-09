@@ -53,6 +53,10 @@
 		.state("main.categories.list", {
 			url: "/list",
 			templateUrl: "app/main/categories/categories.list.template.html"
+		})
+		.state("main.categories.add", {
+			url: "/add",
+			templateUrl: "app/main/categories/categories.add.template.html"
 		});
 		
 		NotificationProvider.setOptions({
