@@ -51,12 +51,12 @@
 		})
 		.state("main.categories.list", {
 			url: "/list",
-			templateUrl: "app/main/categories/categories.list.template.html",
+			templateUrl: "app/main/categories/list/categories.list.template.html",
 			controller: "CategoriesListController"
 		})
 		.state("main.categories.add", {
-			url: "/add",
-			templateUrl: "app/main/categories/categories.add.template.html",
+			url: "/add?id",
+			templateUrl: "app/main/categories/add/categories.add.template.html",
 			controller: "CategoriesAddController"
 		});
 		

@@ -81,20 +81,20 @@
 							</a>
 							<!-- messages -->
 							<!-- loading -->
-							<a class="list-group-item text-center" ng-if="categories.loaded === undefined">
+							<a class="list-group-item text-center" ng-if="main.loaded === undefined">
 								Loading <span class="fa fa-spinner fa-pulse"></span>
 							</a>
 							<!-- loaded but empty -->
-							<a class="list-group-item text-center" ng-if="categories.loaded && categories.list.length === 0">
+							<a class="list-group-item text-center" ng-if="main.loaded && categories.list.length === 0">
 								No categories yet. Add one.
 							</a>
 							<!-- error -->
-							<a class="list-group-item text-center" ng-if="categories.loaded === false" role="button" ng-click="loadCategories()">
+							<a class="btn btn-default list-group-item text-center" ng-if="main.loaded === false" role="button" ng-click="LoadCategories()">
 								Refresh <span class="glyphicon glyphicon-refresh"></span>
 							</a>
 							<!-- search -->
 							<a class="list-group-item text-center" ng-if="categories.length > 0 && filtered.length === 0">
-								No matches <span class="glyphicon glyphicon-main"></span>
+								No matches <span class="glyphicon glyphicon-search"></span>
 							</a>
 						</div>
 					</div>
@@ -138,7 +138,7 @@
 			<h3>Actions <span class="glyphicon glyphicon-flash glyphicon-size-sm"></span></h3>
 		</div>
 		<div class="panel-body">
-			<button class="btn btn-default btn-block" ui-sref="main.categories.add">
+			<button class="btn btn-default btn-block" ng-click="main.Add({id: main.selected.$id})">
 				Add <span class="glyphicon glyphicon-plus"></span>
 			</button>
 			<button class="btn btn-default btn-block" disabled>

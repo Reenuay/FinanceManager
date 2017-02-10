@@ -11,7 +11,7 @@
 	display: inline-block;
 	text-overflow: ellipsis;
 	overflow: hidden;
-	max-width: 60%;
+	max-width: 100%;
 }
 
 .inline-block {

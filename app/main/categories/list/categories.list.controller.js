@@ -1,12 +1,9 @@
-/*
-	This scripts represents logics to "Categories" interface.
-*/
 /*global angular*/
 (function () {
 	"use strict";
 	var app = angular.module("app");
 	
-	app.controller("CategoriesListController", ["$scope", "$http", "$firebaseArray", "$userData", "Notification", "$error", function ($scope, $http, $firebaseArray, $userData, Notification, $error) {
+	app.controller("CategoriesListController", ["$scope", "$firebaseArray", "$userData", "Notification", "$state",  function ($scope, $firebaseArray, $userData, Notification, $state) {
 		
 		/*
 			Scope variables.
@@ -42,23 +39,28 @@
 			else
 				delete $scope.main.selected;
 		};
+		$scope.main.Add = function (params) {
+			$state.go("main.categories.add", params);
+		};
 		
 		/*
 			Functions for template purposes.
 		*/
-		//Loads data from firebase. Is immediately invoked.
-		($scope.LoadCategories = function () {
+		//Loads data from firebase.
+		//main.loaded can be undefined, false or true. If undefined response is not received. If false there is  some errors. If true everything is ok.
+		$scope.LoadCategories = function () {
+			delete $scope.main.loaded;
 			($scope.categories = $firebaseArray($userData().child("categories")))
 			.$loaded()
 			.then(function () {
-				//Mark as loaded.
-				$scope.categories.loaded = true;
+				$scope.main.loaded = true;
 			})
 			.catch(function (error) {
 				Notification.error(error.message);
-				$scope.categories.loaded = false;
+				$scope.main.loaded = false;
 			});
-		}());
+		};
+		$scope.LoadCategories();
 		
 		//Extends catgeories fields to further use in template.
 		$scope.ExtendFields = function (list) {
