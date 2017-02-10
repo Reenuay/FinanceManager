@@ -47,16 +47,17 @@
 		.state("main.categories", {
 			url: "categories",
 			abstract: true,
-			templateUrl: "app/main/abstract.template.html",
-			controller: "CategoriesController"
+			templateUrl: "app/main/abstract.template.html"
 		})
 		.state("main.categories.list", {
 			url: "/list",
-			templateUrl: "app/main/categories/categories.list.template.html"
+			templateUrl: "app/main/categories/categories.list.template.html",
+			controller: "CategoriesListController"
 		})
 		.state("main.categories.add", {
 			url: "/add",
-			templateUrl: "app/main/categories/categories.add.template.html"
+			templateUrl: "app/main/categories/categories.add.template.html",
+			controller: "CategoriesAddController"
 		});
 		
 		NotificationProvider.setOptions({

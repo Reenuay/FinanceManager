@@ -12,7 +12,7 @@
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-search"></span>
 								</span>
-								<input type="text" class="form-control" placeholder="Search" maxlength="45" ng-model="search.value"/>
+								<input type="text" class="form-control" placeholder="Search" maxlength="45" ng-model="main.searchValue"/>
 								<span class="input-group-addon">
 									{{filtered.length}}/{{categories.length}}
 								</span>
@@ -24,13 +24,13 @@
 					<div class="col-xs-12">
 						<div class="form-group">
 							<button class="btn btn-default"
-											ng-if="search.viewMode !== ''"
-											ng-click="search.ItemExpandAll()">
+											ng-if="main.viewMode !== ''"
+											ng-click="main.ItemExpandAll()">
 								<span class="glyphicon glyphicon-plus"></span>
 							</button>
 							<button class="btn btn-default"
-											ng-if="search.viewMode !== ''"
-											ng-click="search.ItemCollapseAll()">
+											ng-if="main.viewMode !== ''"
+											ng-click="main.ItemCollapseAll()">
 								<span class="glyphicon glyphicon-minus"></span>
 							</button>
 						</div>
@@ -44,36 +44,36 @@
 														 ExtendFields
 														 (
 															 categories |
-															 filter: {name: search.value}
+															 filter: {name: main.searchValue}
 														 ) |
-														 orderBy: search.order |
-														 orderParentChild: search.viewMode: 'parent': 'open'
+														 orderBy: main.listOrder |
+														 orderParentChild: main.viewMode: 'parent': 'open'
 														 track by $index"
 									ng-if="filtered.length > 0"
-									ng-click="actions.Select(category)"
-									ng-class="{'active': search.selected === category}"
+									ng-click="main.Select(category)"
+									ng-class="{'active': main.selected === category}"
 									role="button">
 								<span style="padding-left: {{category.level * 5}}%"
-											ng-if="category.level && search.viewMode !== ''">
+											ng-if="category.level && main.viewMode !== ''">
 								</span>
 								<!-- Plus sign -->
 								<span class="glyphicon glyphicon-plus"
 											ng-if="!category.open &&
 														 category.childrenCount > 0 &&
-														 search.viewMode !== ''"
-											ng-click="search.ItemExpand(category);$event.stopPropagation()">
+														 main.viewMode !== ''"
+											ng-click="main.ItemExpand(category);$event.stopPropagation()">
 								</span>
 								<!-- Minus sign -->
 								<span class="glyphicon glyphicon-minus"
 											ng-if="category.open &&
 														 category.childrenCount > 0 &&
-														 search.viewMode !== ''"
-											ng-click="search.ItemCollapse(category);$event.stopPropagation()">
+														 main.viewMode !== ''"
+											ng-click="main.ItemCollapse(category);$event.stopPropagation()">
 								</span>
 								<!-- Name of category -->
 								<span ng-bind="category.name"></span>
 								<!-- Count of children -->
-								<span ng-if="search.viewMode !== '' && category.childrenCount > 0">
+								<span ng-if="main.viewMode !== '' && category.childrenCount > 0">
 									 - {{category.childrenCount}}
 								</span>
 								<!-- Icon -->
@@ -94,7 +94,7 @@
 							</a>
 							<!-- search -->
 							<a class="list-group-item text-center" ng-if="categories.length > 0 && filtered.length === 0">
-								No matches <span class="glyphicon glyphicon-search"></span>
+								No matches <span class="glyphicon glyphicon-main"></span>
 							</a>
 						</div>
 					</div>
@@ -111,23 +111,23 @@
 		<div class="panel-body">
 			<p class="text-muted">View Mode</p>
 			<div class="btn-group btn-group-justified">
-				<label class="btn btn-default" ng-model="search.viewMode" uib-btn-radio="'$id'">
+				<label class="btn btn-default" ng-model="main.viewMode" uib-btn-radio="'$id'">
 					Tree
 				</label>
-				<label class="btn btn-default" ng-model="search.viewMode" uib-btn-radio="''">
+				<label class="btn btn-default" ng-model="main.viewMode" uib-btn-radio="''">
 					List
 				</label>
 			</div>
 			<hr>
 			<p class="text-muted">Order by Name</p>
 			<div class="btn-group btn-group-justified">
-				<label class="btn btn-default" ng-model="search.order" uib-btn-radio="'-name'">
+				<label class="btn btn-default" ng-model="main.listOrder" uib-btn-radio="'-name'">
 					Desc
 				</label>
-				<label class="btn btn-default" ng-model="search.order" uib-btn-radio="''">
+				<label class="btn btn-default" ng-model="main.listOrder" uib-btn-radio="''">
 					None
 				</label>
-				<label class="btn btn-default" ng-model="search.order" uib-btn-radio="'+name'">
+				<label class="btn btn-default" ng-model="main.listOrder" uib-btn-radio="'+name'">
 					Asc
 				</label>
 			</div>

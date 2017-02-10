@@ -6,47 +6,41 @@
 	"use strict";
 	var app = angular.module("app");
 	
-	app.controller("CategoriesController", ["$scope", "$http", "$firebaseArray", "$userData", "Notification", "$error", function ($scope, $http, $firebaseArray, $userData, Notification, $error) {
+	app.controller("CategoriesListController", ["$scope", "$http", "$firebaseArray", "$userData", "Notification", "$error", function ($scope, $http, $firebaseArray, $userData, Notification, $error) {
 		
 		/*
 			Scope variables.
 		*/
-		//This object conatins view and sorting fields and methods.
-		$scope.search = {};
-		$scope.search.value = "";
+		$scope.main = {};
+		$scope.main.searchValue = "";
 		//'$id' for true and '' for false. Used for many logics in template.
 		//For example, for hiding plus and minus signs, parent-child ordering and so on.
-		$scope.search.viewMode = "$id";
+		$scope.main.viewMode = "$id";
 		//can be '-name', '', '+name'. Used for name ordering.
-		$scope.search.order = "";
+		$scope.main.listOrder = "";
 		//Functions for expanding and collapsing one or more item.
-		$scope.search.ItemExpand = function (item) {
+		$scope.main.ItemExpand = function (item) {
 			item.open = true;
 		};
-		$scope.search.ItemCollapse = function (item) {
+		$scope.main.ItemCollapse = function (item) {
 			delete item.open;
 		};
-		$scope.search.ItemExpandAll = function () {
+		$scope.main.ItemExpandAll = function () {
 			$scope.categories.forEach(function (element, index, array) {
 				element.open = true;
 			});
 		};
-		$scope.search.ItemCollapseAll = function () {
+		$scope.main.ItemCollapseAll = function () {
 			$scope.categories.forEach(function (element, index, array) {
 				delete element.open;
 			});
 		};
-		//This object contains actions for categories.
-		$scope.actions = {};
-		$scope.actions.name = "";
-		$scope.actions.icon = "fa fa-asterisk";
-		$scope.actions.color = "black";
 		//Selects a category.
-		$scope.actions.Select = function (item) {
-			if ($scope.search.selected !== item)
-				$scope.search.selected = item;
+		$scope.main.Select = function (item) {
+			if ($scope.main.selected !== item)
+				$scope.main.selected = item;
 			else
-				delete $scope.search.selected;
+				delete $scope.main.selected;
 		};
 		
 		/*
