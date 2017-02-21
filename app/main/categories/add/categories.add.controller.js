@@ -9,7 +9,7 @@
 			Local variables.
 		*/
 		//Parameters.
-		var id = $stateParams.id, categories;
+		var parent_id = $stateParams.parent_id, categories;
 		
 		/*
 			Scope variables.
@@ -20,7 +20,7 @@
 		(categories = $firebaseArray($userData().child("categories")))
 		.$loaded()
 		.then(function () {
-			var record = categories.$getRecord(id);
+			var record = categories.$getRecord(parent_id);
 			if (record) {
 				$scope.main.parent = true;
 				$scope.main.parentName = record.name;
