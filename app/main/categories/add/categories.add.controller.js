@@ -3,32 +3,44 @@
 	"use strict";
 	var app = angular.module("app");
 	
-	app.controller("CategoriesAddController", ["$scope", "$stateParams", "$firebaseArray", "$userData", "Notification", "$error", function ($scope, $stateParams, $firebaseArray, $userData, Notification, $error) {
-		
-		/*
-			Local variables.
-		*/
-		//Parameters.
-		var parent_id = $stateParams.parent_id, categories;
+	app.controller("CategoriesAddController", ["$scope", "$stateParams", "$firebaseArray", "$userData", "Notification", "$error", "$colorList", "$iconList", function ($scope, $stateParams, $firebaseArray, $userData, Notification, $error, $colorList, $iconList) {
 		
 		/*
 			Scope variables.
 		*/
 		$scope.main = {};
+		$scope.main.action = $stateParams.action;
+		
+		$scope.main.colors = $colorList();
+		$scope.main.icons = $iconList();
+		
+		if ($stateParams.action === "add") {
+			$scope.main.colors.active = $scope.main.colors[0];
+			$scope.main.icons.active = $scope.main.icons[0];
+		}
 		
 		//Load parent category.
+		var categories;
 		(categories = $firebaseArray($userData().child("categories")))
 		.$loaded()
 		.then(function () {
-			var record = categories.$getRecord(parent_id);
-			if (record) {
-				$scope.main.parent = true;
-				$scope.main.parentName = record.name;
-				$scope.main.parentIcon = record.icon;
-				$scope.main.parentColor = record.color;
+			$scope.main.record = categories.$getRecord($stateParams.id);
+			if ($scope.main.record) {
+				if ($stateParams.action === "edit") {
+					$scope.main.colors.active = $scope.main.record.color;
+					$scope.main.icons.active = $scope.main.record.icon;
+					$scope.main.name = $scope.main.record.name;
+				}
 			}
 		})
 		.catch($error);
 		
+		$scope.main.SelectColor = function (color) {
+			$scope.main.colors.active = color;
+		};
+		
+		$scope.main.SelectIcon = function (icon) {
+			$scope.main.icons.active = icon;
+		};
 	}]);
 }());

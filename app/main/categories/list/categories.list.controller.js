@@ -9,6 +9,8 @@
 			Scope variables.
 		*/
 		$scope.main = {};
+		//Disabled state for edit/delete buttons.
+		$scope.main.disabled = true;
 		$scope.main.searchValue = "";
 		//'$id' for true and '' for false. Used for many logics in template.
 		//For example, for hiding plus and minus signs, parent-child ordering and so on.
@@ -34,10 +36,13 @@
 		};
 		//Selects a category.
 		$scope.main.Select = function (item) {
-			if ($scope.main.selected !== item)
+			if ($scope.main.selected !== item) {
 				$scope.main.selected = item;
-			else
+				$scope.main.disabled = false;
+			}	else {
 				delete $scope.main.selected;
+				$scope.main.disabled = true;
+			}
 		};
 		$scope.main.Add = function (params) {
 			$state.go("main.categories.add", params);

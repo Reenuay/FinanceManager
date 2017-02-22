@@ -55,7 +55,7 @@
 			controller: "CategoriesListController"
 		})
 		.state("main.categories.add", {
-			url: "/add?parent_id",
+			url: "/{action:^(add|edit)$}?id",
 			templateUrl: "app/main/categories/add/categories.add.template.html",
 			controller: "CategoriesAddController"
 		});

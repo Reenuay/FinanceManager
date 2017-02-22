@@ -1,15 +1,19 @@
-.glyphicon.glyphicon-size-lg {
+.glyphicon-size-xl {
+  font-size: 2em;
+}
+
+.glyphicon-size-lg {
   font-size: 1.5em;
 }
 
-.glyphicon.glyphicon-size-md {
+.glyphicon-size-md {
   font-size: 1em;
 }
 
-.glyphicon.glyphicon-size-sm {
+.glyphicon-size-sm {
   font-size: 0.75em;
 }
 
-.glyphicon.glyphicon-size-xs {
+.glyphicon-size-xs {
   font-size: 0.5em;
 }

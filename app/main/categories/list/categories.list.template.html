@@ -138,13 +138,13 @@
 			<h3>Actions <span class="glyphicon glyphicon-flash glyphicon-size-sm"></span></h3>
 		</div>
 		<div class="panel-body">
-			<button class="btn btn-default btn-block" ng-click="main.Add({parent_id: main.selected.$id})">
+			<button class="btn btn-default btn-block" ng-click="main.Add({action: 'add', id: main.selected.$id})">
 				Add <span class="glyphicon glyphicon-plus"></span>
 			</button>
-			<button class="btn btn-default btn-block" disabled>
+			<button class="btn btn-default btn-block" ng-click="main.Add({action: 'edit', id: main.selected.$id})" ng-disabled="main.disabled">
 				Edit <span class="glyphicon glyphicon-pencil"></span>
 			</button>
-			<button class="btn btn-danger btn-block" disabled>
+			<button class="btn btn-danger btn-block" ng-disabled="main.disabled">
 				Delete <span class="glyphicon glyphicon-remove"></span>
 			</button>
 		</div>

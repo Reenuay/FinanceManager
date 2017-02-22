@@ -3,18 +3,27 @@
   margin: 0 auto;
 }
 
-.navbar-brand {
-	padding: 5px 15px;
-}
-
 .hide-text {
 	display: inline-block;
-	text-overflow: ellipsis;
-	overflow: hidden;
 	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .inline-block {
 	display: inline-block;
 	overflow: hidden;
+}
+
+.navbar-brand {
+	padding: 5px 15px;
+}
+
+.list-group-horizontal .list-group-item {
+	border-radius: 0;
+	display: inline-block;
+}
+
+.list-group-horizontal .list-group-item.icon{
+	width: 56px;
 }
