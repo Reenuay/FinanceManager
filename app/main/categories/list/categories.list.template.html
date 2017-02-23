@@ -77,7 +77,7 @@
 									 - {{category.childrenCount}}
 								</span>
 								<!-- Icon -->
-								<span class="pull-right {{category.icon}}" style="color: {{category.color}}"></span>
+								<span class="pull-right fa fa-{{category.icon}} glyphicon-size-lg" style="color: {{category.color}}"></span>
 							</a>
 							<!-- messages -->
 							<!-- loading -->
@@ -85,7 +85,7 @@
 								Loading <span class="fa fa-spinner fa-pulse"></span>
 							</a>
 							<!-- loaded but empty -->
-							<a class="list-group-item text-center" ng-if="main.loaded && categories.list.length === 0">
+							<a class="list-group-item text-center" ng-if="main.loaded && categories.length === 0">
 								No categories yet. Add one.
 							</a>
 							<!-- error -->
@@ -112,23 +112,28 @@
 			<p class="text-muted">View Mode</p>
 			<div class="btn-group btn-group-justified">
 				<label class="btn btn-default" ng-model="main.viewMode" uib-btn-radio="'$id'">
-					Tree
+					Tree 
+					<span class="glyphicon glyphicon-th-list text-muted"></span>
 				</label>
 				<label class="btn btn-default" ng-model="main.viewMode" uib-btn-radio="''">
-					List
+					List 
+					<span class="glyphicon glyphicon-menu-hamburger text-muted"></span>
 				</label>
 			</div>
 			<hr>
 			<p class="text-muted">Order by Name</p>
 			<div class="btn-group btn-group-justified">
-				<label class="btn btn-default" ng-model="main.listOrder" uib-btn-radio="'-name'">
-					Desc
+				<label class="btn btn-default" ng-model="main.listOrder" uib-btn-radio="'+name'">
+					Asc 
+					<span class="glyphicon glyphicon-sort-by-alphabet text-muted"></span>
 				</label>
 				<label class="btn btn-default" ng-model="main.listOrder" uib-btn-radio="''">
-					None
+					None 
+					<span class="glyphicon glyphicon-sort text-muted"></span>
 				</label>
-				<label class="btn btn-default" ng-model="main.listOrder" uib-btn-radio="'+name'">
-					Asc
+				<label class="btn btn-default" ng-model="main.listOrder" uib-btn-radio="'-name'">
+					Desc 
+					<span class="glyphicon glyphicon-sort-by-alphabet-alt text-muted"></span>
 				</label>
 			</div>
 		</div>
@@ -139,13 +144,13 @@
 		</div>
 		<div class="panel-body">
 			<button class="btn btn-default btn-block" ng-click="main.Add({action: 'add', id: main.selected.$id})">
-				Add <span class="glyphicon glyphicon-plus"></span>
+				Add <span class="glyphicon glyphicon-plus text-muted"></span>
 			</button>
 			<button class="btn btn-default btn-block" ng-click="main.Add({action: 'edit', id: main.selected.$id})" ng-disabled="main.disabled">
-				Edit <span class="glyphicon glyphicon-pencil"></span>
+				Edit <span class="glyphicon glyphicon-pencil text-muted"></span>
 			</button>
-			<button class="btn btn-danger btn-block" ng-disabled="main.disabled">
-				Delete <span class="glyphicon glyphicon-remove"></span>
+			<button class="btn btn-default btn-block" ng-disabled="main.disabled">
+				Delete <span class="glyphicon glyphicon-remove text-muted"></span>
 			</button>
 		</div>
 	</div>

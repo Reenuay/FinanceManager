@@ -7,14 +7,14 @@
 		<div class="panel-body">
 			<div class="container-fluid">
 				<div class="col-md-offset-3 col-md-6">
-					<form role="form" ng-submit="main.Add()" class="form-horizontal" name="AddCategoryForm" novalidate>
+					<form ng-submit="main.Submit()" role="form" class="form-horizontal" name="AddCategoryForm" novalidate>
 						<div class="form-group">
 							<div class="col-xs-12">
 								<h2 class="text-muted hide-text" ng-if="main.record && main.action === 'add'">
-									Add to {{main.record.name}} <span class="{{main.record.icon}}" style="color: {{main.record.color}}"></span>
+									Add to {{main.record.name}} <span class="fa fa-{{main.record.icon}}" style="color: {{main.record.color}}"></span>
 								</h2>
 								<h2 class="text-muted hide-text" ng-if="main.record && main.action === 'edit'">
-									Edit {{main.record.name}} <span class="{{main.record.icon}}" style="color: {{main.record.color}}"></span>
+									Edit {{main.record.name}} <span class="fa fa-{{main.record.icon}}" style="color: {{main.record.color}}"></span>
 								</h2>
 								<h2 class="text-muted" ng-if="!main.record">No parent</h2>
 								<hr/>
@@ -22,14 +22,14 @@
 						</div>
 						<div class="form-group">
 							<div class="col-xs-12">
-								<input type="text" class="form-control" ng-model-options="{updateOn: 'blur'}" placeholder="Name" ng-model="main.name" maxlength="20" name="name" required/>
+								<input type="text" class="form-control" placeholder="Name" ng-model="main.new.name" maxlength="20" name="name" required/>
 								<hr/>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-xs-12 text-center">
 								<div class="list-group list-group-horizontal">
-									<a ng-repeat="color in main.colors" class="list-group-item" ng-class="{'active': main.colors.active === color}" ng-click="main.SelectColor(color)">
+									<a ng-repeat="color in main.colors" class="list-group-item" ng-class="{'active': main.new.color === color}" ng-click="main.SelectColor(color)">
 										<span class="fa fa-circle glyphicon-size-lg" style="color: {{color}}"></span>
 									</a>
 									<hr/>
@@ -39,7 +39,7 @@
 						<div class="form-group">
 							<div class="col-xs-12 text-center">
 								<div class="list-group list-group-horizontal">
-									<a ng-repeat="icon in main.icons" class="list-group-item icon" ng-class="{'active': main.icons.active === icon}" ng-click="main.SelectIcon(icon)">
+									<a ng-repeat="icon in main.icons" class="list-group-item icon" ng-class="{'active': main.new.icon === icon}" ng-click="main.SelectIcon(icon)">
 										<span class="fa fa-{{icon}} glyphicon-size-lg"></span>
 									</a>
 									<hr/>
@@ -48,19 +48,23 @@
 						</div>
 						<div class="form-group">
 							<div class="col-xs-12 text-center">
-								<span class="glyphicon-size-xl text-muted">{{main.name}} </span>
-								<span class="fa fa-{{main.icons.active}} glyphicon-size-xl" style="color: {{main.colors.active}}"></span>
+								<span class="glyphicon-size-xl text-muted">{{main.new.name}} </span>
+								<span class="fa fa-{{main.new.icon}} glyphicon-size-xl" style="color: {{main.new.color}}"></span>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-xs-12 text-center">
-								<a role="button" class="btn btn-default">
+								<a ui-sref="main.categories.list" role="button" class="btn btn-default">
 									Cancel 
 									<span class="glyphicon glyphicon-arrow-left text-muted"></span>
 								</a>
-								<button type="submit" class="btn btn-default">
+								<button type="submit" class="btn btn-default" ng-if="main.action === 'add'">
 									Add 
 									<span class="glyphicon glyphicon-plus text-muted"></span>
+								</button>
+								<button type="submit" class="btn btn-default" ng-if="main.action === 'edit'">
+									Save 
+									<span class="glyphicon glyphicon-ok text-muted"></span>
 								</button>
 							</div>
 						</div>
