@@ -22,14 +22,14 @@
 						</div>
 						<div class="form-group">
 							<div class="col-xs-12">
-								<input type="text" class="form-control" placeholder="Name" ng-model="main.new.name" maxlength="20" name="name" required/>
+								<input type="text" class="form-control" placeholder="Name" ng-model="main.name" maxlength="20" name="name" required/>
 								<hr/>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-xs-12 text-center">
 								<div class="list-group list-group-horizontal">
-									<a ng-repeat="color in main.colors" class="list-group-item" ng-class="{'active': main.new.color === color}" ng-click="main.SelectColor(color)">
+									<a ng-repeat="color in main.colors" class="list-group-item" ng-class="{'active': main.color === color}" ng-click="main.SelectColor(color)">
 										<span class="fa fa-circle glyphicon-size-lg" style="color: {{color}}"></span>
 									</a>
 									<hr/>
@@ -39,7 +39,7 @@
 						<div class="form-group">
 							<div class="col-xs-12 text-center">
 								<div class="list-group list-group-horizontal">
-									<a ng-repeat="icon in main.icons" class="list-group-item icon" ng-class="{'active': main.new.icon === icon}" ng-click="main.SelectIcon(icon)">
+									<a ng-repeat="icon in main.icons" class="list-group-item icon" ng-class="{'active': main.icon === icon}" ng-click="main.SelectIcon(icon)">
 										<span class="fa fa-{{icon}} glyphicon-size-lg"></span>
 									</a>
 									<hr/>
@@ -48,8 +48,8 @@
 						</div>
 						<div class="form-group">
 							<div class="col-xs-12 text-center">
-								<span class="glyphicon-size-xl text-muted">{{main.new.name}} </span>
-								<span class="fa fa-{{main.new.icon}} glyphicon-size-xl" style="color: {{main.new.color}}"></span>
+								<span class="glyphicon-size-xl text-muted">{{main.name}} </span>
+								<span class="fa fa-{{main.icon}} glyphicon-size-xl" style="color: {{main.color}}"></span>
 							</div>
 						</div>
 						<div class="form-group">

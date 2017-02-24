@@ -25,12 +25,12 @@
 						<div class="form-group">
 							<button class="btn btn-default"
 											ng-if="main.viewMode !== ''"
-											ng-click="main.ItemExpandAll()">
+											ng-click="categories.ExpandAll()">
 								<span class="glyphicon glyphicon-plus"></span>
 							</button>
 							<button class="btn btn-default"
 											ng-if="main.viewMode !== ''"
-											ng-click="main.ItemCollapseAll()">
+											ng-click="categories.CollapseAll()">
 								<span class="glyphicon glyphicon-minus"></span>
 							</button>
 						</div>
@@ -40,12 +40,9 @@
 					<div class="col-xs-12">
 						<div class="list-group">
 							<a class="list-group-item"
-									ng-repeat="category in filtered =
-														 ExtendFields
-														 (
-															 categories |
-															 filter: {name: main.searchValue}
-														 ) |
+									ng-repeat="category in filtered = 
+														 categories |
+														 filter: {name: main.searchValue} |
 														 orderBy: main.listOrder |
 														 orderParentChild: main.viewMode: 'parent': 'open'
 														 track by $index"
@@ -61,14 +58,14 @@
 											ng-if="!category.open &&
 														 category.childrenCount > 0 &&
 														 main.viewMode !== ''"
-											ng-click="main.ItemExpand(category);$event.stopPropagation()">
+											ng-click="category.Expand();$event.stopPropagation()">
 								</span>
 								<!-- Minus sign -->
 								<span class="glyphicon glyphicon-minus"
 											ng-if="category.open &&
 														 category.childrenCount > 0 &&
 														 main.viewMode !== ''"
-											ng-click="main.ItemCollapse(category);$event.stopPropagation()">
+											ng-click="category.Collapse();$event.stopPropagation()">
 								</span>
 								<!-- Name of category -->
 								<span ng-bind="category.name"></span>
@@ -81,15 +78,15 @@
 							</a>
 							<!-- messages -->
 							<!-- loading -->
-							<a class="list-group-item text-center" ng-if="main.loaded === undefined">
+							<a class="list-group-item text-center" ng-if="categories.loaded === undefined">
 								Loading <span class="fa fa-spinner fa-pulse"></span>
 							</a>
 							<!-- loaded but empty -->
-							<a class="list-group-item text-center" ng-if="main.loaded && categories.length === 0">
+							<a class="list-group-item text-center" ng-if="categories.loaded && categories.length === 0">
 								No categories yet. Add one.
 							</a>
 							<!-- error -->
-							<a class="btn btn-default list-group-item text-center" ng-if="main.loaded === false" role="button" ng-click="LoadCategories()">
+							<a class="btn btn-default list-group-item text-center" ng-if="categories.loaded === false" role="button" ng-click="categories.Load()">
 								Refresh <span class="glyphicon glyphicon-refresh"></span>
 							</a>
 							<!-- search -->
@@ -143,10 +140,10 @@
 			<h3>Actions <span class="glyphicon glyphicon-flash glyphicon-size-sm"></span></h3>
 		</div>
 		<div class="panel-body">
-			<button class="btn btn-default btn-block" ng-click="main.Add({action: 'add', id: main.selected.$id})">
+			<button class="btn btn-default btn-block" ng-click="main.GoToAdd_Edit({action: 'add', id: main.selected.$id})">
 				Add <span class="glyphicon glyphicon-plus text-muted"></span>
 			</button>
-			<button class="btn btn-default btn-block" ng-click="main.Add({action: 'edit', id: main.selected.$id})" ng-disabled="main.disabled">
+			<button class="btn btn-default btn-block" ng-click="main.GoToAdd_Edit({action: 'edit', id: main.selected.$id})" ng-disabled="main.disabled">
 				Edit <span class="glyphicon glyphicon-pencil text-muted"></span>
 			</button>
 			<button class="btn btn-default btn-block" ng-disabled="main.disabled">
