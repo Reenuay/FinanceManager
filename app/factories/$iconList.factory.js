@@ -28,7 +28,15 @@
 			"wrench",
 			"subway",
 			"usd",
-			"cutlery"
+			"cutlery",
+			"scissors",
+			"gift",
+			"beer",
+			"shopping-cart",
+			"bed",
+			"bug",
+			"sun-o",
+			"plane"
 		];
  }]);
 }());
